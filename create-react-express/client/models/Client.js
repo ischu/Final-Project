@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+// for creating new Pet
 var PetSchema = new Schema({
     name: String,
     breed: String,
@@ -16,12 +17,19 @@ var PicSchema = new Schema({
     createdAt: Date,
     img: Buffer
 });
+var VisitSchema = new Schema({
+    type: String,
+    day: [{ofWeek: String, date: Number}],
+    creratedAt: Date,
+})
+// for storing client info
 var ClientSchema = new Schema({
     name: String,
     phone: Number,
     email: String,
     address: String,
     pet: [PetSchema],
+    schedule: [VisitSchema],
     createdAt: Date
 });
 var Client = mongoose.model('Client', ClientSchema);
