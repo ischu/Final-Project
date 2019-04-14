@@ -1,12 +1,13 @@
 import React from "react";
 import { Container } from "react-bulma-components/full";
+import VisitCard from "../components/VisitCard";
 
-function Profile() {
+function Schedule() {
     return (
       <Container className="has-background-white-ter">
-        PROFILE
+        <VisitCard/>
       </Container>
     );
 }
 
-export default Profile;
+export default Schedule;
