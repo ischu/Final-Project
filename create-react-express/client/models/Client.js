@@ -20,6 +20,8 @@ var PicSchema = new Schema({
 var VisitSchema = new Schema({
     type: String,
     day: [{ofWeek: String, date: Number}],
+    // morning-noon-evening-night
+    timeBlock: String,
     creratedAt: Date,
 })
 // for storing client info

@@ -1,7 +1,13 @@
 import React, {Component} from "react";
 
-new class VisitCard extends Component {
+class VisitCard extends Component {
+    render(){
+        return (
+            <div>
 
+            </div>
+        )
+    }
 };
 
 export default VisitCard;
