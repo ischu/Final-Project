@@ -33,7 +33,8 @@ var ClientSchema = new Schema({
     pet: [PetSchema],
     schedule: [VisitSchema],
     createdAt: Date
-});
+},
+{collection: "Clients"});
 var Client = mongoose.model('Client', ClientSchema);
 
 // for now, only clients will be exported. 

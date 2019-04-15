@@ -33,7 +33,8 @@ var EmployeeSchema = new Schema({
   email: String,
   address: String,
   createdAt: Date
-});
+},
+{collection: "Employees"});
 
 var Employee = mongoose.model('Employee', EmployeeSchema);
 

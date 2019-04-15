@@ -18,7 +18,7 @@ if (process.env.NODE_ENV === "production") {
 // Require all models
 var db = require("./models");
 
-mongoose.connect("mongodb://localhost/WalkSpace", { useNewUrlParser: true })
+mongoose.connect("mongodb://localhost:27017/WalkSpace", { useNewUrlParser: true })
 
 // Define API routes here
 
@@ -28,11 +28,24 @@ app.get("/Clients", function(req, res){
       .then(function(dbClient){
         // success
         res.json(dbClient);
+        console.log(dbClient);
       })
       .catch(function(err){
         // error
         res.json(err);
       })
+});
+// Route for getting employees
+app.get("/Employees", function(req, res){
+  db.Employee.find({})
+    .then(function(dbEmployee){
+      // success
+      res.json(dbEmployee);
+    })
+    .catch(function(err){
+      // error
+      res.json(err);
+    })
 })
 
 // Send every other request to the React app
