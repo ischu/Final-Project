@@ -1,14 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-// for creating new Pet
-var PetSchema = new Schema({
-    name: String,
-    breed: String,
-    age: Number,
-    pic: [PicSchema],
-    createdAt: Date
-});
 // images are a big bucket of worms with Mongo
 //   for now the idea is that the String will be a path to the image.
 //   But, there are alternative ways of doing this as binary data
@@ -23,7 +15,15 @@ var VisitSchema = new Schema({
     // morning-noon-evening-night
     timeBlock: String,
     creratedAt: Date,
-})
+});
+// for creating new Pet
+var PetSchema = new Schema({
+    name: String,
+    breed: String,
+    age: Number,
+    pic: [PicSchema],
+    createdAt: Date
+});
 // for storing client info
 var ClientSchema = new Schema({
     name: String,

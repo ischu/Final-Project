@@ -1,12 +1,12 @@
 import React from "react";
 import { Container } from "react-bulma-components/full";
 
-function Profile() {
+function ClientList() {
     return (
       <Container className="has-background-white-ter">
-        PROFILE
+        Client
       </Container>
     );
 }
 
-export default Profile;
+export default ClientList;
