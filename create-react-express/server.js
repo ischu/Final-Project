@@ -2,12 +2,20 @@ const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const logger = require ('morgan');
+const bodyParser = require('body-parser')
 const PORT = process.env.PORT || 3001;
 const app = express();
 
 // Define middleware here
 // Use morgan logger for logging requests
 app.use(logger("dev"));
+// body-parser
+app.use(
+    bodyParser.urlencoded({
+      extended: false
+    })
+);
+app.use(bodyParser.json());
 // parse as JSON
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
