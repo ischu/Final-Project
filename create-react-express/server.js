@@ -5,6 +5,9 @@ const logger = require ('morgan');
 const bodyParser = require('body-parser')
 const PORT = process.env.PORT || 3001;
 const app = express();
+const passport = require("passport");
+
+const users = require("./routes/api/users");
 
 // Define middleware here
 // Use morgan logger for logging requests
@@ -23,12 +26,18 @@ app.use(express.json());
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/public"));
 }
+// Passport middleware
+app.use(passport.initialize());
+// Passport config
+require("./config/passport")(passport);
+
 // Require all models
 var db = require("./models");
 
 mongoose.connect("mongodb://localhost:27017/WalkSpace", { useNewUrlParser: true })
 
-// Define API routes here
+// API routes
+app.use("/api/users", users);
 
 // Route for getting clients
 app.get("/Clients", function(req, res){
