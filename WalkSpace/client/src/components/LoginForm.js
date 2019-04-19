@@ -1,25 +1,28 @@
 import React, { Component } from "react";
+import {loginUser} from "../utils/authController";
 
 class LoginForm extends Component {
     constructor() {
         super();
         this.state = {
-          email: "",
-          password: "",
-          errors: {}
+            email: "",
+            password: "",
+            errors: {},
+            token: '',
         };
-      }
+    };
     onChange = e => {
         this.setState({ [e.target.id]: e.target.value });
-      };
+    };
     onSubmit = e => {
         e.preventDefault();
-    const userData = {
-          email: this.state.email,
-          password: this.state.password
+        const userData = {
+            email: this.state.email,
+            password: this.state.password
         };
-    console.log(userData);
-      };
+        loginUser(userData);
+        console.log(userData);
+    };
     render() {
         const { errors } = this.state;
         return (
@@ -28,14 +31,14 @@ class LoginForm extends Component {
                 <div className="field">
                     <label className="label">Email</label>
                     <div className="control has-icons-right">
-                        <input 
-                        className={"input is-primary" || "input is-success" || "input is-danger"} 
-                        onChange={this.onChange}
-                        value={this.state.email}
-                        error={errors.email}
-                        type="email" 
-                        id="email"
-                        placeholder="Email" 
+                        <input
+                            className={"input is-primary" || "input is-success" || "input is-danger"}
+                            onChange={this.onChange}
+                            value={this.state.email}
+                            error={errors.email}
+                            type="email"
+                            id="email"
+                            placeholder="Email"
                         />
                         <span className="icon is-small is-right">
                             <i className={"fas fa-check" || "fas fa-exclamation-triangle"}></i>
@@ -47,14 +50,14 @@ class LoginForm extends Component {
                 <div className="field">
                     <label className="label">Password</label>
                     <div className="control has-icons-right">
-                        <input 
-                        className={"input is-primary" || "input is-success" || "input is-danger"} 
-                        onChange={this.onChange}
-                        value={this.state.password}
-                        error={errors.password}
-                        type="password" 
-                        id="password"
-                        placeholder="Password" />
+                        <input
+                            className={"input is-primary" || "input is-success" || "input is-danger"}
+                            onChange={this.onChange}
+                            value={this.state.password}
+                            error={errors.password}
+                            type="password"
+                            id="password"
+                            placeholder="Password" />
                         <span className="icon is-small is-right">
                             <i className={"fas fa-check" || "fas fa-exclamation-triangle"}></i>
                         </span>
@@ -64,7 +67,7 @@ class LoginForm extends Component {
                 {/* buttons */}
                 <div className="field is-grouped">
                     <div className="control">
-                        <button className="button is-link">Submit</button>
+                        <button className="button is-link" onClick={this.onSubmit}>Submit</button>
                     </div>
                     <div className="control">
                         <button className="button is-text">Cancel</button>

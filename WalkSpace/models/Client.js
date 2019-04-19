@@ -42,7 +42,7 @@ var ClientSchema = new Schema({
     },
     createdAt: {
         type: Date,
-        default: Date.now
+        default: Date.now()
     }
 },
     { collection: "Clients" });

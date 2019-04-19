@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+
 // import { Link } from "react-router-dom";
+// import {registerUser} from "../utils/authController"
 
 class RegisterForm extends Component {
     constructor() {
@@ -11,7 +13,9 @@ class RegisterForm extends Component {
             password2: "",
             errors: {}
         };
+        
     }
+
     onChange = e => {
         this.setState({ [e.target.id]: e.target.value });
     };
