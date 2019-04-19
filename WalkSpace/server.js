@@ -6,8 +6,9 @@ const bodyParser = require('body-parser')
 const PORT = process.env.PORT || 3001;
 const app = express();
 const passport = require("passport");
-
+const secret = process.env.SECRET || "tara1";
 const users = require("./routes/api/users");
+require("dotenv").config();
 
 // Define middleware here
 // Use morgan logger for logging requests
@@ -24,7 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/public"));
+  app.use(express.static(path.join(__dirname, "client", "build")));
 }
 // Passport middleware
 app.use(passport.initialize());
@@ -34,7 +35,7 @@ require("./config/passport")(passport);
 // Require all models
 var db = require("./models");
 
-mongoose.connect("mongodb://localhost:27017/WalkSpace", { useNewUrlParser: true })
+mongoose.connect(process.env.MONGODB_URI||"mongodb://localhost:27017/WalkSpace", { useNewUrlParser: true })
 
 // API routes
 app.use("/api/users", users);
@@ -68,7 +69,7 @@ app.get("/Employees", function(req, res){
 // Send every other request to the React app
 // Define any API routes before this runs
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "./client/public/index.html"));
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
 app.listen(PORT, () => {

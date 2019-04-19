@@ -34,6 +34,7 @@ class LoginForm extends Component {
                         value={this.state.email}
                         error={errors.email}
                         type="email" 
+                        id="email"
                         placeholder="Email" 
                         />
                         <span className="icon is-small is-right">
@@ -52,6 +53,7 @@ class LoginForm extends Component {
                         value={this.state.password}
                         error={errors.password}
                         type="password" 
+                        id="password"
                         placeholder="Password" />
                         <span className="icon is-small is-right">
                             <i className={"fas fa-check" || "fas fa-exclamation-triangle"}></i>

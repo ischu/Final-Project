@@ -8,19 +8,24 @@
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
-  "author": "",
+  "author": "ianschu",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^4.1.0",
     "nodemon": "^1.18.7"
+  },
+  "engines": {
+    "node": "8.12.0"
   },
   "dependencies": {
     "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "bulma": "^0.7.4",
+    "dotenv": "^7.0.0",
     "express": "^4.16.3",
     "if-env": "^1.0.4",
     "is-empty": "^1.2.0",

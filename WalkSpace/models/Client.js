@@ -33,7 +33,17 @@ var ClientSchema = new Schema({
     address: String,
     pet: [PetSchema],
     schedule: [VisitSchema],
-    createdAt: Date
+    emergencyContact: {
+        name: String,
+        phone: Number,
+        email: String,
+        address: String,
+        relation: String
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
 },
     { collection: "Clients" });
 var Client = mongoose.model('Client', ClientSchema);
