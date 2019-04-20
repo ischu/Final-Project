@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { CurrentUser } from "../App"
+import CurrentUser from "../AppContext";
 import { Button } from "react-bulma-components/full";
 import { Link } from 'react-router-dom';
-import { logoutUser } from '../utils/authController';
+// import { logoutUser } from '../utils/authController';
 
 class NavBar extends Component {
     // static contextType = CurrentUser;
@@ -11,44 +11,50 @@ class NavBar extends Component {
             <nav className="navbar" role="navigation" aria-label="main navigation">
                 <div className="navbar-brand">
                     <div className="navbar-item" href="https://bulma.io">
-                        <img alt="" src="https://bulma.io/images/bulma-logo.png" width="112" height="28" />
-                    </div>
-
-                    <div role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
+                        <img alt="logo" src="https://bulma.io/images/bulma-logo.png" width="112" height="28" />
                     </div>
                 </div>
-
-                <div id="navbarBasicExample" className="navbar-menu">
+                {/* add className="navbar-menu" and this section will be hidden when on screens smaller than 1024 */}
+                <div id="navbar" className="navbar-menu">
                     <div className="navbar-start">
-                        <Link to={"/profile"} className="navbar-item">
-                            Profile
-                    </Link>
-
-                        <Link to={"/schedule"} className="navbar-item">
-                            Schedule
-                    </Link>
+                        <CurrentUser.Consumer>
+                            {({ isUser }) =>
+                                isUser ?
+                                    <React.Fragment>
+                                        <a href={"/profile"} className="navbar-item">
+                                            Profile
+                                        </a>
+                                        <a href={"/schedule"} className="navbar-item">
+                                            Schedule
+                                        </a>
+                                    </React.Fragment>
+                                    :
+                                    <React.Fragment></React.Fragment>
+                            }
+                        </CurrentUser.Consumer>
                     </div>
 
                     <div className="navbar-end">
-                        <div className="navbar-item">
-                            <div className="buttons">
-                                {/* the context of user log in state determines which button renders */}
-                                <CurrentUser.Consumer>
-                                    {({ isUser }) => 
-                                        isUser ? 
-                                        <Button onClick={logoutUser} className="is-light">Log out</Button>
+                        <div className="buttons">
+                            {/* the context of user log in state determines which button renders */}
+                            <CurrentUser.Consumer>
+                                {({ isUser, logOut }) =>
+                                    isUser ?
+                                        <Button onClick={logOut} className="is-dark">
+                                            <strong>Log out</strong>
+                                        </Button>
                                         :
-                                        <Link to={"/"} className="button is-primary">Log in</Link>
-                                    }
-                                </CurrentUser.Consumer>
-                                <Link
-                                    className="button is-dark" to={"/register"}>
-                                    <strong>Register</strong>
-                                </Link>
-                            </div>
+                                        <React.Fragment>
+                                            <a href={"/"} className="button is-primary">
+                                                <strong>Log in</strong>
+                                            </a>
+                                            <a
+                                                className="button is-info" href={"/register"}>
+                                                <strong>Register</strong>
+                                            </a>
+                                        </React.Fragment>
+                                }
+                            </CurrentUser.Consumer>
                         </div>
                     </div>
                 </div>

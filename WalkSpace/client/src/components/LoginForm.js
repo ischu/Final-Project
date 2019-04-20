@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import {loginUser} from "../utils/authController";
+import { loginUser } from "../utils/authController";
+import CurrentUser from "../AppContext";
 
 class LoginForm extends Component {
     constructor() {
         super();
         this.state = {
-            email: "",
-            password: "",
+            email: '',
+            password: '',
             errors: {},
             token: '',
         };
@@ -15,13 +16,19 @@ class LoginForm extends Component {
         this.setState({ [e.target.id]: e.target.value });
     };
     onSubmit = e => {
-        e.preventDefault();
+        // e.preventDefault();
         const userData = {
             email: this.state.email,
             password: this.state.password
         };
-        loginUser(userData);
-        console.log(userData);
+
+
+        // imported from authcontroller
+        loginUser(userData, () => {
+            // importing context to change "global state"
+            let context = this.context;
+            context.logIn()
+        });
     };
     render() {
         const { errors } = this.state;
@@ -77,5 +84,5 @@ class LoginForm extends Component {
         )
     }
 }
-
+LoginForm.contextType = CurrentUser;
 export default LoginForm;

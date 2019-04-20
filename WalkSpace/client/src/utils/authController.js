@@ -12,38 +12,42 @@ export const registerUser = (userData, history) => {
     .post("/api/users/register", userData)
     .then(res => history.push("/")) // re-direct to login on successful register
     .catch(error => {
-      this.setState({
-        errors: error.response.status
-      }, () => {
-        console.error(this.state.errors);
-      });
+      // this.setState({
+      //   errors: error.response.status
+      // }, () => {
+        console.error(error);
+      // });
     });
 };
 // Login - get user token
-export const loginUser=(userData)=>{
-      axios
-          .post("/api/users/login", userData)
-          .then(res => {
-              // Save to localStorage
-              // Set token to localStorage
-              const { token } = res.data;
-              sessionStorage.setItem("jwtToken", token);
-              // Set token to Auth header
-              setAuthToken(token);
-              // Decode token to get user data
-              const decoded = jwt_decode(token);
-              console.log(decoded);
-              // Set current user
-              // dispatch(setCurrentUser(decoded));
-          })
-          .catch(error => {
-              this.setState({
-                errors: error.response.status
-              }, () => {
-                console.error(this.state.errors);
-              });
-            });
-  };
+export const loginUser = (userData, cb) => {
+  axios
+    .post("/api/users/login", userData)
+    .then(res => {
+      // Save to sessionStorage
+      const { token } = res.data;
+      sessionStorage.setItem("jwtToken", token);
+      // Set token to Auth header
+      setAuthToken(token);
+      // Decode token to get user data
+      const decoded = jwt_decode(token);
+      console.log(decoded);
+      // Callback to allow context to set after call is made
+      cb();
+    })
+    // TODO: add error setState function
+    .catch(error => {
+      // this.setState({
+      //   errors: error.response.status
+      // }, () => 
+      // {
+        console.error(
+          error
+          // this.state.errors
+          );
+      // });
+    });
+};
 // // Set logged in user
 // export const setCurrentUser = decoded => {
 //   return {
