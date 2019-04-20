@@ -1,7 +1,7 @@
 import React from "react";
 import { Container } from "react-bulma-components/full";
 
-function ClientList() {
+function ClientSearch() {
     return (
       <Container className="has-background-white-ter">
         Client
@@ -9,4 +9,4 @@ function ClientList() {
     );
 }
 
-export default ClientList;
+export default ClientSearch;

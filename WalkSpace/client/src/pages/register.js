@@ -1,15 +1,16 @@
 import React from "react";
 import { Container } from "react-bulma-components/full";
+import NavBar from "../components/NavBar";
 import RegisterForm from "../components/RegisterForm.js";
 
 function Register() {
     return (
-      <Container className="has-background-white-ter">
-        <div className="has-text-primary">
-          Hello
+        <div>
+            <NavBar></NavBar>
+            <Container className="has-background-white-ter">
+                <RegisterForm />
+            </Container>
         </div>
-        <RegisterForm/>
-      </Container>
     );
 }
 
