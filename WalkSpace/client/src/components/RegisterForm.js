@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-
+import {registerUser} from "../utils/authController";
+// import axios from "axios";
+import { withRouter } from "react-router-dom";
 // import { Link } from "react-router-dom";
 // import {registerUser} from "../utils/authController"
 
@@ -11,11 +13,11 @@ class RegisterForm extends Component {
             email: "",
             password: "",
             password2: "",
-            errors: {}
+            errors: {},
+            token: '',
         };
         
     }
-
     onChange = e => {
         this.setState({ [e.target.id]: e.target.value });
     };
@@ -27,6 +29,7 @@ class RegisterForm extends Component {
             password: this.state.password,
             password2: this.state.password2
         };
+        registerUser(newUser, this.props.history);
         console.log(newUser);
     };
     render() {
@@ -47,7 +50,7 @@ class RegisterForm extends Component {
                   </p>
                 </div> */}
                 <div id="register-form" onSubmit={this.onSubmit}>
-                    <div clasName="field">
+                    <div className="field">
                         <label className="label">Name</label>
                         <div className="control">
                             <input className="input is-primary"
@@ -59,7 +62,7 @@ class RegisterForm extends Component {
                             />
                         </div>
                     </div>
-                    <div clasName="field">
+                    <div className="field">
                         <label className="label">Email</label>
                         <div className="control">
                             <input className="input is-primary"
@@ -71,7 +74,7 @@ class RegisterForm extends Component {
                             />
                         </div>
                     </div>
-                    <div clasName="field">
+                    <div className="field">
                         <label className="label">Password</label>
                         <div className="control">
                             <input className="input is-primary"
@@ -84,7 +87,7 @@ class RegisterForm extends Component {
 
                         </div>
                     </div>
-                    <div clasName="field">
+                    <div className="field">
                         <label className="label">Confirm Password</label>
                         <div className="control">
                             <input className="input is-primary"
@@ -97,13 +100,13 @@ class RegisterForm extends Component {
 
                         </div>
                     </div>
-                    <div clasName="field">
-                        <div class="field is-grouped">
-                            <div class="control">
-                                <button type="submit" class="button is-link">Submit</button>
+                    <div className="field">
+                        <div className="field is-grouped">
+                            <div className="control">
+                                <button type="submit" className="button is-link" onClick={this.onSubmit}>Submit</button>
                             </div>
-                            <div class="control">
-                                <button class="button is-text">Cancel</button>
+                            <div className="control">
+                                <button className="button is-text">Cancel</button>
                             </div>
                         </div>
                     </div>
@@ -113,4 +116,4 @@ class RegisterForm extends Component {
     }
 }
 
-export default RegisterForm;
+export default withRouter(RegisterForm);

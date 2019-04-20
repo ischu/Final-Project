@@ -10,10 +10,14 @@ import jwt_decode from "jwt-decode";
 export const registerUser = (userData, history) => {
   axios
     .post("/api/users/register", userData)
-    .then(res => history.push("/login")) // re-direct to login on successful register
-    .catch(err =>
-      console.log(err.response.data)
-    );
+    .then(res => history.push("/")) // re-direct to login on successful register
+    .catch(error => {
+      this.setState({
+        errors: error.response.status
+      }, () => {
+        console.error(this.state.errors);
+      });
+    });
 };
 // Login - get user token
 export const loginUser=(userData)=>{
@@ -54,11 +58,11 @@ export const loginUser=(userData)=>{
 //   };
 // };
 // // Log user out
-// export const logoutUser = () => dispatch => {
-//   // Remove token from local storage
-//   localStorage.removeItem("jwtToken");
-//   // Remove auth header for future requests
-//   setAuthToken(false);
-//   // Set current user to empty object {} which will set isAuthenticated to false
-//   dispatch(setCurrentUser({}));
-// };
+export const logoutUser = () => {
+  // Remove token from local storage
+  sessionStorage.removeItem("jwtToken");
+  // Remove auth header for future requests
+  setAuthToken(false);
+  // Set current user to empty object {} which will set isAuthenticated to false
+  // dispatch(setCurrentUser({}));
+};
