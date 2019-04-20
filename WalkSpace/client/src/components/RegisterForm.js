@@ -16,7 +16,6 @@ class RegisterForm extends Component {
             errors: {},
             token: '',
         };
-        
     }
     onChange = e => {
         this.setState({ [e.target.id]: e.target.value });

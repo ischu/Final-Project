@@ -33,7 +33,7 @@ export const loginUser=(userData)=>{
               // Decode token to get user data
               const decoded = jwt_decode(token);
               console.log(decoded);
-              // Set current user with Context
+              // Set current user
               // dispatch(setCurrentUser(decoded));
           })
           .catch(error => {
@@ -63,6 +63,6 @@ export const logoutUser = () => {
   sessionStorage.removeItem("jwtToken");
   // Remove auth header for future requests
   setAuthToken(false);
-  // Set current user to empty object {} which will set isAuthenticated to false
+  // set isUser to false
   // dispatch(setCurrentUser({}));
 };

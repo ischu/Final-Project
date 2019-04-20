@@ -9,11 +9,21 @@ import Profile from "./pages/profile";
 import ClientSearch from "./pages/clientsearch";
 import "./App.css";
 
-export const CurrentUser = React.createContext({isUser:true});
+export const CurrentUser = React.createContext({isUser:false});
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+        isUser:true,
+        setUser: this.setUser
+    };
+}
+  setUser=user=>{
+    this.setState({user})
+  }
   render() {
     return (
-      <CurrentUser.Provider value={{isUser:true}}>
+      <CurrentUser.Provider value={this.state}>
         <Router>
           <Hero></Hero>
           <Switch>

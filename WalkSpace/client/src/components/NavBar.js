@@ -35,26 +35,22 @@ class NavBar extends Component {
                     <div className="navbar-end">
                         <div className="navbar-item">
                             <div className="buttons">
-                                {/* add conditional to swap in log out button when already logged-in */}
-                                {/* <Button className="button is-primary">
-                                <strong>Sign up</strong>
-                            </Button> */}
+                                {/* the context of user log in state determines which button renders */}
                                 <CurrentUser.Consumer>
-                                    {({ isUser }) =>
-                                        <Button className={isUser ? "button is-primary" : "button is-light"}
-                                            onClick={isUser ? <Link to={"/"}></Link> : logoutUser}
-                                        >
-                                            {isUser ? "Log in" : "Log out"}
-                                        </Button>
+                                    {({ isUser }) => 
+                                        isUser ? 
+                                        <Button onClick={logoutUser} className="is-light">Log out</Button>
+                                        :
+                                        <Link to={"/"} className="button is-primary">Log in</Link>
                                     }
                                 </CurrentUser.Consumer>
-                                <Button
-                                className="button is-info" onClick={logoutUser}>
-                                    <strong>Log out</strong>
-                                </Button>
+                                <Link
+                                    className="button is-dark" to={"/register"}>
+                                    <strong>Register</strong>
+                                </Link>
+                            </div>
                         </div>
                     </div>
-                </div>
                 </div>
             </nav >)
     }
