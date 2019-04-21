@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // import CurrentUser from "./AppContext";
-import Hero from "./components/Hero";
 import Login from "./pages/login";
 import Register from "./pages/register";
 import Schedule from "./pages/schedule";
@@ -59,7 +58,6 @@ class App extends Component {
     return (
       <CurrentUser.Provider value={this.state}>
         <Router>
-          <Hero></Hero>
           <Switch>
             <Route exact path="/" component={Login} />
             <Route exact path="/register" component={Register} />
