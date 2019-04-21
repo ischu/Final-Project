@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import CurrentUser from "../AppContext";
 import { Button } from "react-bulma-components/full";
-import { Link } from 'react-router-dom';
 // import { logoutUser } from '../utils/authController';
 
 class NavBar extends Component {

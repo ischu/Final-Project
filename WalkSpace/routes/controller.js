@@ -14,6 +14,12 @@ module.exports = {
       .findById(req.params.id)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
+  },
+  findClientByName: function(req, res){
+    db.Client
+      .findOne({name: req.query})
+      .then(dbClient=>res.json(dbClient))
+      .catch(err=>res.status(422).json(err));
   }
   // create: function(req, res) {
   //   db.Book

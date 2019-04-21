@@ -53,6 +53,31 @@ app.get("/Clients", function(req, res){
         res.json(err);
       })
 });
+// Routes for getting one client
+app.get("/Clients?name", function(req, res){
+  db.Client.findOne({name:req.param.name})
+    .then(function(dbClient){
+      // success
+      res.json(dbClient);
+      console.log(dbClient);
+    })
+    .catch(function(err){
+      // error
+      res.json(err);
+    })
+});
+app.get("/Clients?email", function(req, res){
+  db.Client.findOne({email:req.param.name})
+    .then(function(dbClient){
+      // success
+      res.json(dbClient);
+      console.log(dbClient);
+    })
+    .catch(function(err){
+      // error
+      res.json(err);
+    })
+});
 // Route for getting employees
 app.get("/Employees", function(req, res){
   db.Employee.find({})
