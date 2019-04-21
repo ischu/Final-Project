@@ -24,8 +24,8 @@ function ClientBox(props) {
             <Level>
             <div class="level-left level-item">
                     <div>
-                        <p class="heading has-text-primary">Visits</p>
-                        <p class="title">Link</p>
+                        <p class="heading has-text-primary">Schedule</p>
+                        <p class="title">Visit1</p>
                     </div>
                 </div>
             </Level>
