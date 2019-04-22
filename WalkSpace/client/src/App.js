@@ -17,14 +17,15 @@ class App extends Component {
     super();
     this.state = {
       isUser: false,
+      user:null,
       setUser: this.setUser,
       logOut: this.logoutUser,
       logIn: this.logIn
     };
   }
   // this allows manipulation of state by child components
-  setUser = user => {
-    this.setState({ user })
+  setUser = newUser => {
+    this.setState({ user:newUser })
   }
   // if there is a token in session storage, set isUser to true, otherwise, set to false
   checkIfUser = () => {
@@ -48,7 +49,8 @@ class App extends Component {
     // Remove auth header for future requests
     setAuthToken(false);
     // set isUser to false
-    this.checkIfUser()
+    this.checkIfUser();
+
   };
   componentDidMount() {
     // call check

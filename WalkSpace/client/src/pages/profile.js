@@ -4,6 +4,7 @@ import { Container } from "react-bulma-components/full";
 import NavBar from "../components/NavBar";
 import UserBox from "../components/UserBox";
 import ClientBox from "../components/ClientBox";
+import { getClientByEmail } from "../utils/docController";
 
 class Profile extends Component {
     // STATE
@@ -11,32 +12,25 @@ class Profile extends Component {
         super(props)
         this.state = {
             isClient: false,
-            user: {
-                id: 1,
-                name: "friend-bot",
-                email: "NONONON",
-                phone: "(666)-666-6666",
-                address: "123 Vondee Ave."
-            },
+            user: {_id:1, name:"1", email:"1", address:"1"},
             client: {
                 pets: [{ name: "dog" }, { name: "cat" }],
                 contact: { name: "mom" }
             }
         }
+
+
     }
     // METHODS
-    componentDidMount = () => {
-        console.log("French Fried and Dead Inside");
-        this.getEmail();
+    componentDidMount() {
+        this.getEmail()
     }
-    getEmail=()=>{
+    getEmail = () => {
         let token = sessionStorage.getItem("jwtToken");
         let decoded = jwt_decode(token);
         let decodedEmail = decoded.email;
-        this.setState(
-            {email: decodedEmail}
-        );
-        console.log(decoded);
+        // calls client collection for client document
+        console.log(getClientByEmail(decodedEmail))
     }
 
     render() {
@@ -54,14 +48,17 @@ class Profile extends Component {
             <React.Fragment>
                 <NavBar></NavBar>
                 <Container className="has-background-white-ter">
-                    <UserBox
-                        key={this.state.user.id}
-                        name={this.state.user.name}
-                        email={this.state.user.email}
-                        phone={this.state.user.phone}
-                        address={this.state.user.address}
-                    >
-                    </UserBox>
+                {/* short circuit will delay render until data has been fetched */}
+                    {this.state && this.state.user &&
+                        <UserBox
+                            key={this.state.user._id}
+                            name={this.state.user.name}
+                            email={this.state.user.email}
+                            phone={this.state.user.phone}
+                            address={this.state.user.address}
+                        >
+                        </UserBox>
+                    }
                     {boxTwo}
                 </Container>
             </React.Fragment>

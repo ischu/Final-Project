@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import CurrentUser from "../AppContext";
-import { Button } from "react-bulma-components/full";
 
 class NavBar extends Component {
     // static contextType = CurrentUser;
@@ -38,9 +37,9 @@ class NavBar extends Component {
                             <CurrentUser.Consumer>
                                 {({ isUser, logOut }) =>
                                     isUser ?
-                                        <Button onClick={logOut} className="is-dark">
+                                        <a href={"/"} onClick={logOut} className="button is-dark">
                                             <strong>Log out</strong>
-                                        </Button>
+                                        </a>
                                         :
                                         <React.Fragment>
                                             <a href={"/"} className="button is-primary">

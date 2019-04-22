@@ -6,8 +6,9 @@ const bodyParser = require('body-parser')
 const PORT = process.env.PORT || 3001;
 const app = express();
 const passport = require("passport");
-const secret = process.env.SECRET || "tara1";
+const secret = process.env.SECRET || "secret";
 const users = require("./routes/api/users");
+// const router= require("./routes/router")
 require("dotenv").config();
 
 // Define middleware here
@@ -39,6 +40,7 @@ mongoose.connect(process.env.MONGODB_URI||"mongodb://localhost:27017/WalkSpace",
 
 // API routes
 app.use("/api/users", users);
+// app.use("/router", router);
 
 // Route for getting clients
 app.get("/Clients", function(req, res){
@@ -66,8 +68,9 @@ app.get("/Clients?name", function(req, res){
       res.json(err);
     })
 });
-app.get("/Clients?email", function(req, res){
-  db.Client.findOne({email:req.param.name})
+app.get("/Clients/:email", function(req, res){
+  var query = req.params.email;
+  db.Client.findOne({email:query})
     .then(function(dbClient){
       // success
       res.json(dbClient);
@@ -77,6 +80,13 @@ app.get("/Clients?email", function(req, res){
       // error
       res.json(err);
     })
+});
+app.get('/v1/users/:username', function(request, response, next) {
+  var username = request.params.username;
+  findUserByUsername(username, function(error, user) {
+    if (error) return next(error);
+    return response.render('user', user);
+  });
 });
 // Route for getting employees
 app.get("/Employees", function(req, res){
