@@ -32,7 +32,6 @@ export const loginUser = (userData, cb) => {
       // Decode token to get user data
       const decoded = jwt_decode(token);
       // set decoded email
-      sessionStorage.setItem("email", decoded.email);
       console.log(decoded);
       // Callback to allow context to set after call is made
       cb();

@@ -31,7 +31,7 @@ var ClientSchema = new Schema({
     phone: Number,
     email: String,
     address: String,
-    pet: [PetSchema],
+    pets: [PetSchema],
     schedule: [VisitSchema],
     emergencyContact: {
         name: String,

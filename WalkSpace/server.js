@@ -81,13 +81,6 @@ app.get("/Clients/:email", function(req, res){
       res.json(err);
     })
 });
-app.get('/v1/users/:username', function(request, response, next) {
-  var username = request.params.username;
-  findUserByUsername(username, function(error, user) {
-    if (error) return next(error);
-    return response.render('user', user);
-  });
-});
 // Route for getting employees
 app.get("/Employees", function(req, res){
   db.Employee.find({})
@@ -99,8 +92,20 @@ app.get("/Employees", function(req, res){
       // error
       res.json(err);
     })
-})
-
+});
+app.get("/Employees/:email", function(req, res){
+  var query = req.params.email;
+  db.Employee.findOne({email:query})
+    .then(function(dbEmployee){
+      // success
+      res.json(dbEmployee);
+      console.log(dbEmployee);
+    })
+    .catch(function(err){
+      // error
+      res.json(err);
+    })
+});
 // Send every other request to the React app
 // Define any API routes before this runs
 app.get("*", (req, res) => {
