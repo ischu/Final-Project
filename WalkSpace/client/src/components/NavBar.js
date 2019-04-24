@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {Link} from "react-router-dom";
 import CurrentUser from "../AppContext";
 
 class NavBar extends Component {
@@ -7,7 +8,7 @@ class NavBar extends Component {
         return (
             <nav className="navbar" role="navigation" aria-label="main navigation">
                 <div className="navbar-brand">
-                    <div className="navbar-item" href="https://bulma.io">
+                    <div className="navbar-item" href="">
                         <img alt="logo" src="https://bulma.io/images/bulma-logo.png" width="112" height="28" />
                     </div>
                 </div>
@@ -18,12 +19,12 @@ class NavBar extends Component {
                             {({ isUser }) =>
                                 isUser ?
                                     <React.Fragment>
-                                        <a href={"/profile"} className="navbar-item">
+                                        <Link to={"/profile"} className="navbar-item">
                                             Profile
-                                        </a>
-                                        <a href={"/schedule"} className="navbar-item">
+                                        </Link>
+                                        <Link to={"/schedule"} className="navbar-item">
                                             Schedule
-                                        </a>
+                                        </Link>
                                     </React.Fragment>
                                     :
                                     <React.Fragment></React.Fragment>

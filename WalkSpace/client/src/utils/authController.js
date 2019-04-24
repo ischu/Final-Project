@@ -1,6 +1,7 @@
 import axios from "axios";
 import setAuthToken from "./setAuthToken";
 import jwt_decode from "jwt-decode";
+import { getEmployeeByEmail } from "./docController";
 // import {
 //   GET_ERRORS,
 //   SET_CURRENT_USER,
@@ -15,12 +16,12 @@ export const registerUser = (userData, history) => {
       // this.setState({
       //   errors: error.response.status
       // }, () => {
-        console.error(error);
+      console.error(error);
       // });
     });
 };
 // Login - get user token
-export const loginUser = (userData, cb) => {
+export const loginUser = (userData, history, cb) => {
   axios
     .post("/api/users/login", userData)
     .then(res => {
@@ -35,6 +36,8 @@ export const loginUser = (userData, cb) => {
       console.log(decoded);
       // Callback to allow context to set after call is made
       cb();
+      // routes to profile page
+      history.push("/profile")
     })
     // TODO: add error setState function
     .catch(error => {
@@ -42,10 +45,10 @@ export const loginUser = (userData, cb) => {
       //   errors: error.response.status
       // }, () => 
       // {
-        console.error(
-          error
-          // this.state.errors
-          );
+      console.error(
+        error
+        // this.state.errors
+      );
       // });
     });
 };

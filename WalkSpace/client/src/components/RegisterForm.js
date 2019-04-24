@@ -31,6 +31,14 @@ class RegisterForm extends Component {
         // imported from authcontroller
         registerUser(newUser, this.props.history);
     };
+    onCancel = e => {
+        this.setState({
+            name: "",
+            email: "",
+            password: "",
+            password2: "",
+        });
+    }
     render() {
         const { errors } = this.state;
         return (
@@ -89,10 +97,10 @@ class RegisterForm extends Component {
                     <div className="field">
                         <div className="field is-grouped">
                             <div className="control">
-                                <button type="submit" className="button is-link" onClick={this.onSubmit}>Submit</button>
+                                <button type="submit" className="button has-text-white is-primary" onClick={this.onSubmit}>Submit</button>
                             </div>
                             <div className="control">
-                                <button className="button is-text">Cancel</button>
+                                <button className="button has-text-white is-primary" onClick={this.onCancel}>Cancel</button>
                             </div>
                         </div>
                     </div>
