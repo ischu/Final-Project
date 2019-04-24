@@ -12,10 +12,13 @@ function Schedule() {
         {({user})=>
         user.schedule.map(visit=>
         <VisitCard
-        user={user.name}
+        name={user.name}
+        address={user.address}
         time={visit.time}
+        date={visit.date}
         arrive={visit.arrive}
         complete={visit.complete}
+        cancelled={visit.cancelled}
         />
         )
         }
