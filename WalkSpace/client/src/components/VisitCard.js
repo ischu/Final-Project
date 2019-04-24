@@ -1,35 +1,33 @@
-import React, { Component } from "react";
+import React from "react";
 
-class VisitCard extends Component {
-    render() {
+function VisitCard(props) {
         return (
-            <div class="card">
-                <header class="card-header">
-                    <p class="card-header-title">
-                        Component
+            <div className="card">
+                <header className="card-header">
+                    <p className="card-header-title">
+                        Visit
                     </p>
-                    <a href="#" class="card-header-icon" aria-label="more options">
-                    <span class="icon">
-                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                    <a href="#" className="card-header-icon" aria-label="more options">
+                    <span className="icon">
+                        <i className="fas fa-angle-down" aria-hidden="true"></i>
                     </span>
                     </a>
                 </header>
-            <div class="card-content">
-                <div class="content">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-      <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+            <div className="card-content">
+                <div className="content is-danger">
+                    {props.time}
                     <br />
                     <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
                 </div>
             </div>
-            <footer class="card-footer">
-                <a href="#" class="card-footer-item">Save</a>
-                <a href="#" class="card-footer-item">Edit</a>
-                <a href="#" class="card-footer-item">Delete</a>
-            </footer>
+            {/* <footer className="card-footer">
+                <a href="#" className="card-footer-item">Save</a>
+                <a href="#" className="card-footer-item">Edit</a>
+                <a href="#" className="card-footer-item">Delete</a>
+            </footer> */}
             </div >
         )
-    }
+
 };
 
 export default VisitCard;

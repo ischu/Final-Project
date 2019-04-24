@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {Link} from "react-router-dom";
+// import { Button } from "react-bulma-components/full";
 import CurrentUser from "../AppContext";
 
 class NavBar extends Component {
@@ -8,7 +9,7 @@ class NavBar extends Component {
         return (
             <nav className="navbar" role="navigation" aria-label="main navigation">
                 <div className="navbar-brand">
-                    <div className="navbar-item" href="">
+                    <div className="navbar-item">
                         <img alt="logo" src="https://bulma.io/images/bulma-logo.png" width="112" height="28" />
                     </div>
                 </div>
@@ -38,18 +39,17 @@ class NavBar extends Component {
                             <CurrentUser.Consumer>
                                 {({ isUser, logOut }) =>
                                     isUser ?
-                                        <a href={"/"} onClick={logOut} className="button is-dark">
+                                        <Link to={"/"} onClick={logOut} className="button is-dark">
                                             <strong>Log out</strong>
-                                        </a>
+                                        </Link>
                                         :
                                         <React.Fragment>
-                                            <a href={"/"} className="button is-primary">
+                                            <Link to={"/"} className="button is-primary">
                                                 <strong>Log in</strong>
-                                            </a>
-                                            <a
-                                                className="button is-info" href={"/register"}>
+                                            </Link>
+                                            <Link  to={"/register"} className="button is-info">
                                                 <strong>Register</strong>
-                                            </a>
+                                            </Link>
                                         </React.Fragment>
                                 }
                             </CurrentUser.Consumer>

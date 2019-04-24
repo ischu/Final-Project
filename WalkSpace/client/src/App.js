@@ -22,13 +22,7 @@ class App extends Component {
     }
     this.state = {
       isUser: false,
-      user: {
-        _id : "5cb26853b60a62d2a6cf9a6a",
-        name : "employee1",
-        phone : 1111111111,
-        email : "email@email.com",
-        address : "100 Ave rd."
-    },
+      user: {},
       setUser: this.setUser,
       logOut: this.logoutUser,
       logIn: this.logIn
@@ -66,13 +60,14 @@ class App extends Component {
     // call check
     this.checkIfUser();
   }
+  // 
   getEmail = (func) => {
     let token = sessionStorage.getItem("jwtToken");
     let decoded = jwt_decode(token);
     let decodedEmail = decoded.email;
     // calls client collection for client document
-    // console.log(getClientByEmail(decodedEmail, func));
-    console.log(getEmployeeByEmail(decodedEmail, func));
+    console.log(getClientByEmail(decodedEmail, func));
+    // console.log(getEmployeeByEmail(decodedEmail, func));
 }
   render() {
     return (

@@ -4,7 +4,7 @@ import { Level } from 'react-bulma-components';
 // Create collapsible cards for pets and contacts
 function ClientBox(props) {
     return (
-        <React.Fragment>
+        <React.Fragment key={props.key}>
 
             <Level>
                 <div className="level-left level-item">
