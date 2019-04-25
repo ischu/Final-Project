@@ -1,30 +1,57 @@
 import React from "react";
-import { Container } from "react-bulma-components/full";
+import { Container, Level } from "react-bulma-components/full";
+import Calendar from 'react-calendar';
 import NavBar from "../components/NavBar";
 import VisitCard from "../components/VisitCard";
 import CurrentUser from "../AppContext";
 
-function Schedule() {
+class Schedule extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      date: new Date()
+    };
+  }
+  componentDidMount() {
+    let context = this.context;
+    this.setState({ user: context.user })
+  }
+  render() {
     return (
       <Container className="has-background-white-ter">
-      <NavBar></NavBar>
-      <CurrentUser.Consumer>
-        {({user})=>
-        user.schedule.map(visit=>
-        <VisitCard
-        name={user.name}
-        address={user.address}
-        time={visit.time}
-        date={visit.date}
-        arrive={visit.arrive}
-        complete={visit.complete}
-        cancelled={visit.cancelled}
-        />
-        )
+        <NavBar></NavBar>
+        <Calendar/>
+        {/* Top level title-bar, with the days date */}
+        <CurrentUser.Consumer>
+          {({ user }) =>
+            <Level>
+              <div className="level-item has-background-primary">
+                <p className="title">{user.name}</p>
+              </div>
+            </Level>
+          }
+        </CurrentUser.Consumer>
+        {this.state.user &&
+          <CurrentUser.Consumer>
+            {/* Generates Schedule list from array of visits */}
+            {({ user }) =>
+              user.schedule.map(visit =>
+                <VisitCard
+                  name={user.name}
+                  address={user.address}
+                  time={visit.time}
+                  date={visit.date}
+                  arrive={visit.arrive}
+                  complete={visit.complete}
+                  cancelled={visit.cancelled}
+                />
+              )
+            }
+          </CurrentUser.Consumer>
         }
-      </CurrentUser.Consumer>
       </Container>
     );
+  }
 }
-
+Schedule.contextType = CurrentUser;
 export default Schedule;
