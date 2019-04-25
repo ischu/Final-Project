@@ -9,17 +9,32 @@ class Schedule extends React.Component {
   constructor() {
     super();
     this.state = {
+      // schedule defaults to today's date
       date: new Date()
     };
   }
   componentDidMount() {
-    let context = this.context;
-    this.setState({ user: context.user })
     console.log(this.state.date + "DATE")
   };
-  onChange = date => this.setState({ date })
+  onChange = date => this.setState({ date });
+  getDaysVisits=(date, userType, user)=>{
+    // find vists by date assigned to user
+    app.get('/visits',function(req, res) {
+
+      Visit.find({date: date, userType: user}, function(err, user) 
+      {
+         if (err)
+         {
+             res.send(err);
+         }
+         console.log(user);
+         res.json(user);
+     
+      });
+     }); 
+  };
   render() {
-    let today = this.state.date.toLocaleDateString();
+    let slashDate = this.state.date.toLocaleDateString();
     return (
       
       <Container className="has-background-white-ter">
@@ -33,7 +48,7 @@ class Schedule extends React.Component {
           {({ user }) => */}
             <Level>
               <div className="level-item has-background-primary">
-                <p className="title">{today}</p>
+                <p className="title">{slashDate}</p>
               </div>
             </Level>
           {/* }

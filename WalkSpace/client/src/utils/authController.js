@@ -1,12 +1,7 @@
 import axios from "axios";
 import setAuthToken from "./setAuthToken";
 import jwt_decode from "jwt-decode";
-import { getEmployeeByEmail } from "./docController";
-// import {
-//   GET_ERRORS,
-//   SET_CURRENT_USER,
-//   USER_LOADING
-// } from "./types";
+
 // Register User
 export const registerUser = (userData, history) => {
   axios
