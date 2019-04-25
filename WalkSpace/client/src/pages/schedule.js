@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Level } from "react-bulma-components/full";
+import { getDaysVisits } from "../utils/docController";
 import Calendar from 'react-calendar';
 import NavBar from "../components/NavBar";
 import VisitCard from "../components/VisitCard";
@@ -15,24 +16,9 @@ class Schedule extends React.Component {
   }
   componentDidMount() {
     console.log(this.state.date + "DATE")
+    // getDaysVisits(this.state.date, this.context.user.type, this.context.user._id)
   };
   onChange = date => this.setState({ date });
-  getDaysVisits=(date, userType, user)=>{
-    // find vists by date assigned to user
-    app.get('/visits',function(req, res) {
-
-      Visit.find({date: date, userType: user}, function(err, user) 
-      {
-         if (err)
-         {
-             res.send(err);
-         }
-         console.log(user);
-         res.json(user);
-     
-      });
-     }); 
-  };
   render() {
     let slashDate = this.state.date.toLocaleDateString();
     return (

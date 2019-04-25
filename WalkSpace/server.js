@@ -121,10 +121,10 @@ app.get("/Visits", function (req, res) {
 });
 // *one* user's visits for *one* day
 app.get("/Visits?date=value1&key2=value2", function (req, res) {
-  let queryDate = req.query.date;
+  const queryDate = req.query.date;
   // TODO- figure out how to set key2 with a variable! is it just req.key2?
-  let userField = req.key2;
-  let queryUser = req.query.key2;
+  const userField = req.key2;
+  const queryUser = req.query.key2;
   // userType will set to either client or employee field, depending on which is using app
   db.Visit.find({ date:queryDate, [userField]: queryUser }, function (err, visits) {
     if (err) {

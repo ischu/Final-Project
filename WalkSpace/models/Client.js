@@ -47,8 +47,10 @@ var ClientSchema = new Schema({
 },
     { collection: "Clients" });
 var Client = mongoose.model('Client', ClientSchema);
+var Visit = mongoose.model('Visit', VisitSchema);
+
 
 // for now, only clients will be exported. 
 //   However, exporting pets as their own documents may be necessary at some future date
 
-module.exports = Client;
+module.exports = Client, Visit;
