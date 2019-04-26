@@ -22,6 +22,7 @@ class App extends Component {
     }
     this.state = {
       isUser: false,
+      type:"employee",
       user: {},
       setUser: this.setUser,
       logOut: this.logoutUser,
@@ -66,8 +67,10 @@ class App extends Component {
     let decoded = jwt_decode(token);
     let decodedEmail = decoded.email;
     // calls client collection for client document
-    console.log(getClientByEmail(decodedEmail, func));
-    // console.log(getEmployeeByEmail(decodedEmail, func));
+    if(this.state.type==="client")
+    {console.log(getClientByEmail(decodedEmail, func));}
+    if(this.state.type==="employee")
+    {console.log(getEmployeeByEmail(decodedEmail, func));}
 }
   render() {
     return (

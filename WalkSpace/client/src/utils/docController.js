@@ -30,13 +30,15 @@ export const getClientByEmail = (email, func) => {
         // });
       });
   };
-  export const getDaysVisits=(date, userType, user)=>{
+  export const getDaysVisits=(date, userType, user, cb)=>{
     axios
-    .get(`/Visits?date=${date}&${userType}=${user}`)
+    // date.toISOString().substring(0, 10) converts the date to proper format and removes the "oclock" part
+    .get(`/UserVisitsOnDate?${userType}=${user}&date=${date.toISOString().substring(0, 10)}`)
     .then(function(res){
         console.log(res.data);
+        console.log(date.toISOString())
         const visits = res.data;
-        return visits;
+        cb(res.data);
     })
     .catch(error => {
       // this.setState({

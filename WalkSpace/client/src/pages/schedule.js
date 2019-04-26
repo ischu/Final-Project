@@ -11,15 +11,26 @@ class Schedule extends React.Component {
     super();
     this.state = {
       // schedule defaults to today's date
-      date: new Date()
+      date: new Date(),
+      // empty array, api call will fill with the selected date's visits
+      visits: []
     };
   }
   componentDidMount() {
     console.log(this.state.date + "DATE")
-    // getDaysVisits(this.state.date, this.context.user.type, this.context.user._id)
+    getDaysVisits(this.state.date, this.context.type, this.context.user.name, this.dateClick);
   };
-  onChange = date => this.setState({ date });
+  // componentDidUpdate() {
+  //   getDaysVisits(this.state.date, this.context.type, this.context.user.name, this.dateClick);
+  //   console.log("update")
+  // }
+  showVisits=()=>{getDaysVisits(this.state.date, this.context.type, this.context.user.name, this.dateClick)}
+  onChange = date => 
+  {this.setState({ date });
+  this.showVisits()};
+  dateClick = daysVisits => this.setState({visits:daysVisits})
   render() {
+    let visits = this.state.visits;
     let slashDate = this.state.date.toLocaleDateString();
     return (
       
@@ -28,6 +39,7 @@ class Schedule extends React.Component {
         <Calendar
           onChange={this.onChange}
           value={this.state.date}
+          onClick={this.showVisits}
         />
         {/* Top level title-bar, with the days date */}
         {/* <CurrentUser.Consumer>
@@ -39,25 +51,19 @@ class Schedule extends React.Component {
             </Level>
           {/* }
         </CurrentUser.Consumer> */}
-        {this.state.user &&
-          <CurrentUser.Consumer>
-            {/* Generates Schedule list from array of visits */}
-            {({ user }) =>
-              // user.schedule.map(visit =>
-              //   <VisitCard
-              //     name={user.name}
-              //     address={user.address}
-              //     time={visit.time}
-              //     date={visit.date}
-              //     arrive={visit.arrive}
-              //     complete={visit.complete}
-              //     cancelled={visit.cancelled}
-              //   />
-              // )
-              <div>{user.name}</div>
-            }
-          </CurrentUser.Consumer>
-        }
+        {this.state.visits &&
+          visits.map((visit) =>
+                <VisitCard
+                  name={visit.client}
+                  address="{visit.address}"
+                  time="{visit.time}"
+                  date={visit.date}
+                  arrive={false}
+                  complete={false}
+                  cancelled={false}
+                />
+          )
+          }
       </Container>
     );
   }

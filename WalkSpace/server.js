@@ -120,51 +120,24 @@ app.get("/Visits", function (req, res) {
     })
 });
 // *one* user's visits for *one* day
-app.get("/oneDayoneUser", function (req, res) {
-  const queryDate = req.query.date;
-  // TODO- figure out how to set key2 with a variable! is it just req.key2?
-  const userField = req.key2;
-  const queryUser = req.query.key2;
-  // userType will set to either client or employee field, depending on which is using app
-  db.Visit.find({ date: queryDate, [userField]: queryUser }, function (err, visits) {
-    if (err) {
-      res.send(err);
-    }
-    console.log(visits);
-    res.json(visits);
-  });
-});
-// find all of one client's visits
-app.get("/oneClientVisit", function (req, res) {
-  const dateToFind = new Date(req.query.date);
-  if(req.query.employee){
-    var user="employee"
+app.get("/UserVisitsOnDate", function (req, res) {
+  // convert query into Date Obj.
+  // const dateToFind = new Date(req.query.date);
+  var start = new Date(2019,3,17,20,00);
+  var end = new Date(2019, 3, 18, 19, 59);
+  // regex will match date even if it includes hours, minutes, etc.
+  var regex = new RegExp("^" + req.query.date + ".*$");
+  if (req.query.employee) {
+    var user = "employee"
   }
-  if(req.query.client){
+  if (req.query.client) {
     var user = "client"
   }
-  db.Visit.find({ [user]: req.query[user], date: dateToFind }, function (err, visits) {
+  db.Visit.find({ [user]: req.query[user], date: {$regex: regex}}, function (err, visits) {
     if (err) {
       res.send(err);
     }
-    console.log(visits);
-    res.json(visits);
-  });
-});
-// find all of one client's visits
-app.get("/oneDateVisit", function (req, res) {
-  let query = {};
-  if (req.query.date) {
-    query["date"] = req.query.date
-  }
-  const dateToFind = new Date(req.query.date);
-  // const queryDate = req.query.date;
-  // const userField = req.key2;
-  // userType will set to either client or employee field, depending on which is using app
-  db.Visit.find({ date: dateToFind}, function (err, visits) {
-    if (err) {
-      res.send(err);
-    }
+    console.log(regex)
     console.log(visits);
     res.json(visits);
   });
