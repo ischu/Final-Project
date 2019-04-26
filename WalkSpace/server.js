@@ -110,9 +110,9 @@ app.get("/Employees/:email", function (req, res) {
 // all visits
 app.get("/Visits", function (req, res) {
   db.Visit.find({})
-    .then(function (dbEmployee) {
+    .then(function (dbVisits) {
       // success
-      res.json(dbEmployee);
+      res.json(dbVisits);
     })
     .catch(function (err) {
       // error
@@ -120,20 +120,55 @@ app.get("/Visits", function (req, res) {
     })
 });
 // *one* user's visits for *one* day
-app.get("/Visits?date=value1&key2=value2", function (req, res) {
+app.get("/oneDayoneUser", function (req, res) {
   const queryDate = req.query.date;
   // TODO- figure out how to set key2 with a variable! is it just req.key2?
   const userField = req.key2;
   const queryUser = req.query.key2;
   // userType will set to either client or employee field, depending on which is using app
-  db.Visit.find({ date:queryDate, [userField]: queryUser }, function (err, visits) {
+  db.Visit.find({ date: queryDate, [userField]: queryUser }, function (err, visits) {
     if (err) {
       res.send(err);
     }
     console.log(visits);
     res.json(visits);
   });
-}); 
+});
+// find all of one client's visits
+app.get("/oneClientVisit", function (req, res) {
+  const dateToFind = new Date(req.query.date);
+  if(req.query.employee){
+    var user="employee"
+  }
+  if(req.query.client){
+    var user = "client"
+  }
+  db.Visit.find({ [user]: req.query[user], date: dateToFind }, function (err, visits) {
+    if (err) {
+      res.send(err);
+    }
+    console.log(visits);
+    res.json(visits);
+  });
+});
+// find all of one client's visits
+app.get("/oneDateVisit", function (req, res) {
+  let query = {};
+  if (req.query.date) {
+    query["date"] = req.query.date
+  }
+  const dateToFind = new Date(req.query.date);
+  // const queryDate = req.query.date;
+  // const userField = req.key2;
+  // userType will set to either client or employee field, depending on which is using app
+  db.Visit.find({ date: dateToFind}, function (err, visits) {
+    if (err) {
+      res.send(err);
+    }
+    console.log(visits);
+    res.json(visits);
+  });
+});
 // Send every other request to the React app
 // Define any API routes before this runs
 app.get("*", (req, res) => {

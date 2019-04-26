@@ -9,14 +9,14 @@ var PicSchema = new Schema({
     createdAt: Date,
     img: Buffer
 });
-var VisitSchema = new Schema({
-    employee: String,
-    type: String,
-    day: [{ ofWeek: String, date: Number }],
-    // morning-noon-evening-night
-    timeBlock: String,
-    creratedAt: Date,
-});
+// var VisitSchema = new Schema({
+//     employee: String,
+//     type: String,
+//     day: [{ ofWeek: String, date: Number }],
+//     // morning-noon-evening-night
+//     timeBlock: String,
+//     creratedAt: Date,
+// });
 // for creating new Pet
 var PetSchema = new Schema({
     name: String,
@@ -32,7 +32,7 @@ var ClientSchema = new Schema({
     email: String,
     address: String,
     pets: [PetSchema],
-    schedule: [VisitSchema],
+    // schedule: [VisitSchema],
     emergencyContact: {
         name: String,
         phone: Number,
@@ -47,10 +47,7 @@ var ClientSchema = new Schema({
 },
     { collection: "Clients" });
 var Client = mongoose.model('Client', ClientSchema);
-var Visit = mongoose.model('Visit', VisitSchema);
-
-
 // for now, only clients will be exported. 
 //   However, exporting pets as their own documents may be necessary at some future date
 
-module.exports = Client, Visit;
+module.exports = Client;
