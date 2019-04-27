@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-import jwt_decode from "jwt-decode";
 import { Container } from "react-bulma-components/full";
 import NavBar from "../components/NavBar";
 import UserBox from "../components/UserBox";
 import ClientBox from "../components/ClientBox";
-import { getClientByEmail, getEmployeeByEmail } from "../utils/docController";
 import CurrentUser from "../AppContext";
 
 class Profile extends Component {

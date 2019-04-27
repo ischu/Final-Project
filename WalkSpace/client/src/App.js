@@ -27,7 +27,7 @@ class App extends Component {
       setUser: this.setUser,
       logOut: this.logoutUser,
       logIn: this.logIn
-    };
+      };
   }
 
   // if there is a token in session storage, set isUser to true, otherwise, set to false
@@ -69,6 +69,7 @@ class App extends Component {
     // calls client collection for client document
     if(this.state.type==="client")
     {console.log(getClientByEmail(decodedEmail, func));}
+    // calls employee collection for employee document
     if(this.state.type==="employee")
     {console.log(getEmployeeByEmail(decodedEmail, func));}
 }

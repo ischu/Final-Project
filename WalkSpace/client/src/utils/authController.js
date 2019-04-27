@@ -16,7 +16,7 @@ export const registerUser = (userData, history) => {
     });
 };
 // Login - get user token
-export const loginUser = (userData, history, cb) => {
+export const loginUser = (userData, history, setErr, cb) => {
   axios
     .post("/api/users/login", userData)
     .then(res => {
@@ -25,27 +25,21 @@ export const loginUser = (userData, history, cb) => {
       sessionStorage.setItem("jwtToken", token);
       // Set token to Auth header
       setAuthToken(token);
-      // Decode token to get user data
-      const decoded = jwt_decode(token);
-      // set decoded email
-      console.log(decoded);
-      // Callback to allow context to set after call is made
+      // Callback to set context *after* call is made
       cb();
       // routes to profile page
       history.push("/profile")
     })
-    // TODO: add error setState function
+    // Sets login error state- passes to frontend validation
     .catch(error => {
-      // this.setState({
-      //   errors: error.response.status
-      // }, () => 
-      // {
-      console.error(
-        error
-        // this.state.errors
-      );
-      // });
-    });
+      setErr(
+        error.response.data
+      )
+      //   console.error(
+      //   this.state.errors,
+      //   error.response.status
+      // );
+    })
 };
 // // Set logged in user
 // export const setCurrentUser = decoded => {
