@@ -4,13 +4,12 @@ import { Level } from 'react-bulma-components';
 // Create collapsible cards for pets and contacts
 function ClientBox(props) {
     return (
-        <React.Fragment key={props.key}>
+        <React.Fragment>
 
             <Level>
                 <div className="level-left level-item">
                     <div>
                         <p className="heading has-text-primary">Pets</p>
-                        {/* map list of pets */}
                         {props.pets.map((pet) =>
                             <p className="title">{pet.name}</p>
                         )}

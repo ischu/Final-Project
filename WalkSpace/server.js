@@ -123,8 +123,7 @@ app.get("/Visits", function (req, res) {
 app.get("/UserVisitsOnDate", function (req, res) {
   // convert query into Date Obj.
   // const dateToFind = new Date(req.query.date);
-  var start = new Date(2019,3,17,20,00);
-  var end = new Date(2019, 3, 18, 19, 59);
+  
   // regex will match date even if it includes hours, minutes, etc.
   var regex = new RegExp("^" + req.query.date + ".*$");
   if (req.query.employee) {

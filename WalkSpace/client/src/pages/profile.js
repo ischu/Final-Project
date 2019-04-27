@@ -8,7 +8,6 @@ import CurrentUser from "../AppContext";
 class Profile extends Component {
 
     componentDidMount() {
-
     }
 
     render() {
@@ -32,12 +31,12 @@ class Profile extends Component {
                         }
                     </CurrentUser.Consumer>
                     }
-                    {/* this section will only render if user is client (only clients have pets) */}
-                    {this.context.user.pets &&
+                    {/* this section will only render if user is client */}
+                    {this.context.user && this.context.type==="client" && this.context.user.pets &&
                         <ClientBox
                             key={this.context.user._id}
                             pets={this.context.user.pets}
-                            contact={this.context.user.emergencyContact[0].name}
+                            contact={this.context.user.name}
                         />
                     }
                 </Container>

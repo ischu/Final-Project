@@ -18,7 +18,7 @@ class LoginForm extends Component {
     };
     // send to authcontroller to get errors
     setError = (errData) => {
-        this.setState({ errors: errData })
+        this.setState({ errors: errData})
     };
     onSubmit = e => {
         e.preventDefault();
@@ -42,10 +42,9 @@ class LoginForm extends Component {
         console.log(this.state.errors)
     }
     render() {
-        console.log(this.state.errors)
-        const { errors } = this.state;
         return (
             <CurrentUser.Consumer>
+                {/* if user is logged in, they are automatically redirected to the profile page */}
                 {({ isUser }) =>
                     isUser ?
                         <React.Fragment>
@@ -66,10 +65,10 @@ class LoginForm extends Component {
                                         id="email"
                                         placeholder="Email"
                                     />
-                                    <span className="icon is-small is-right">
-                                        {/* TODO-add error.status state to set this 200=check 400=triangle */}
-                                        {/* <i className={this.state.errors.email?"fas fa-check" : "fas fa-exclamation-triangle"}></i> */}
-                                    </span>
+                                    {/* <span className="icon is-small is-right">
+                                        TODO-add error.status state to set this 200=check 400=triangle
+                                        <i className={this.state.errors.email?"fas fa-check" : "fas fa-exclamation-triangle"}></i>
+                                    </span> */}
                                 </div>
                                 <p className="help is-danger">{this.state.errors.email}</p>
                             </div>
@@ -85,9 +84,9 @@ class LoginForm extends Component {
                                         type="password"
                                         id="password"
                                         placeholder="Password" />
-                                    <span className="icon is-small is-right">
-                                        {/* <i className={this.state.errors.password?"fas fa-exclamation-triangle" : "fas fa-check"}></i> */}
-                                    </span>
+                                    {/* <span className="icon is-small is-right">
+                                        <i className={this.state.errors.passwordincorrect?"fas fa-check" : "fas fa-exclamation-triangle"}></i>
+                                    </span> */}
                                 </div>
                                 <p className="help is-danger">{this.state.errors.passwordincorrect}</p>
                             </div>

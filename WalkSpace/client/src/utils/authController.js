@@ -32,28 +32,12 @@ export const loginUser = (userData, history, setErr, cb) => {
     })
     // Sets login error state- passes to frontend validation
     .catch(error => {
-      setErr(
+      if(error.response)
+{      setErr(
         error.response.data
-      )
-      //   console.error(
-      //   this.state.errors,
-      //   error.response.status
-      // );
+      )}
     })
 };
-// // Set logged in user
-// export const setCurrentUser = decoded => {
-//   return {
-//     type: SET_CURRENT_USER,
-//     payload: decoded
-//   };
-// };
-// // User loading
-// export const setUserLoading = () => {
-//   return {
-//     type: USER_LOADING
-//   };
-// };
 // // Log user out
 export const logoutUser = () => {
   // Remove token from local storage
