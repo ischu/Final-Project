@@ -22,7 +22,7 @@ class App extends Component {
     }
     this.state = {
       isUser: false,
-      type:"client",
+      type:"",
       user: {},
       setUser: this.setUser,
       logOut: this.logoutUser,

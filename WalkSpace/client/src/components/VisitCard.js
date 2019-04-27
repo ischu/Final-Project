@@ -10,7 +10,7 @@ function VisitCard(props) {
                     (props.arrive ? "card has-background-info" : "card"))}>
             <header className="card-header">
                 <p className="card-header-title">
-                    Visit for {props.name}
+                    Visit for {props.name} at {props.address}
                 </p>
                 <a className="card-header-icon" aria-label="more options">
                     <span className="icon">

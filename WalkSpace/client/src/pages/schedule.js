@@ -18,15 +18,12 @@ class Schedule extends React.Component {
   }
   componentDidMount() {
     console.log(this.state.date + "DATE")
-    getDaysVisits(this.state.date, this.context.type, this.context.user.name, this.dateClick);
+    // finds visits for selected date for the logged in user (by id)
+    getDaysVisits(this.state.date, this.context.type, this.context.user._id, this.dateClick);
   };
-  // componentDidUpdate() {
-  //   getDaysVisits(this.state.date, this.context.type, this.context.user.name, this.dateClick);
-  //   console.log("update")
-  // }
-  showVisits=()=>{getDaysVisits(this.state.date, this.context.type, this.context.user.name, this.dateClick)}
+  showVisits=()=>{getDaysVisits(this.state.date, this.context.type, this.context.user._id, this.dateClick)}
   onChange = date => 
-  {this.setState({ date });
+  {this.setState({ date })
   this.showVisits()};
   dateClick = daysVisits => this.setState({visits:daysVisits})
   render() {
@@ -39,7 +36,6 @@ class Schedule extends React.Component {
         <Calendar
           onChange={this.onChange}
           value={this.state.date}
-          onClick={this.showVisits}
         />
         {/* Top level title-bar, with the days date */}
         {/* <CurrentUser.Consumer>
@@ -54,13 +50,13 @@ class Schedule extends React.Component {
         {this.state.visits &&
           visits.map((visit) =>
                 <VisitCard
-                  name={visit.client}
-                  address="{visit.address}"
-                  time="{visit.time}"
+                  name={visit.client.name}
+                  address={visit.client.address}
+                  time={visit.timeBlock}
                   date={visit.date}
-                  arrive={false}
-                  complete={false}
-                  cancelled={false}
+                  arrive={visit.arrive}
+                  complete={visit.complete}
+                  cancelled={visit.cancelled}
                 />
           )
           }

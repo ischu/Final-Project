@@ -123,23 +123,24 @@ app.get("/Visits", function (req, res) {
 app.get("/UserVisitsOnDate", function (req, res) {
   // convert query into Date Obj.
   // const dateToFind = new Date(req.query.date);
-  
+  // populate client and employee fields with their matching docs
+  const popEmployeeAndClient = [{path:"employee", model: db.Employee}, {path:"client", model: db.Client}];
   // regex will match date even if it includes hours, minutes, etc.
-  var regex = new RegExp("^" + req.query.date + ".*$");
+  const regex = new RegExp("^" + req.query.date + ".*$");
   if (req.query.employee) {
     var user = "employee"
   }
   if (req.query.client) {
     var user = "client"
   }
-  db.Visit.find({ [user]: req.query[user], date: {$regex: regex}}, function (err, visits) {
+  db.Visit.find({ [user]: {_id:req.query[user]}, date: {$regex: regex}}, function (err, visits) {
     if (err) {
       res.send(err);
     }
     console.log(regex)
     console.log(visits);
     res.json(visits);
-  });
+  }).populate(popEmployeeAndClient);
 });
 // Send every other request to the React app
 // Define any API routes before this runs
