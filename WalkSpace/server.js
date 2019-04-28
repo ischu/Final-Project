@@ -130,6 +130,7 @@ app.get("/UserVisitsOnDate", function (req, res) {
   const popEmployeeAndClient = [{ path: "employee", model: db.Employee }, { path: "client", model: db.Client }];
   // regex will match date even if it includes hours, minutes, etc.
   const regex = new RegExp("^" + req.query.date + ".*$");
+  // sets "find-key" to client if searching for client, employee if searching for employee
   if (req.query.employee) {
     var user = "employee"
   }
@@ -176,7 +177,7 @@ app.put("/VisitComplete/:id", function (req, res) {
     (err, doc) => {
       if (err) return res.res.status(500).send({ error: err });
       console.log(doc);
-      return res.send("succesfully updated arrive")
+      return res.send("succesfully updated complete")
     }
   )
 });
@@ -194,7 +195,46 @@ app.put("/VisitCancel/:id", function (req, res) {
     (err, doc) => {
       if (err) return res.res.status(500).send({ error: err });
       console.log(doc);
-      return res.send("succesfully updated arrive")
+      return res.send(`succesfully updated cancel`)
+    }
+  )
+});
+// route for Marking visit arrive, complete, or cancel
+// combination of three routes above
+app.put("/MarkVisit", function (req, res) {
+  const queryId = req.query.id;
+  const queryField = req.query.field;
+  db.Visit.findOneAndUpdate(
+    { _id: queryId },
+    {
+      [queryField]: {
+        status: true, timestamp: Date.now()
+      }
+    }
+    , { new: true },
+    (err, doc) => {
+      if (err) return res.res.status(500).send({ error: err });
+      console.log(doc);
+      return res.send(`succesfully updated ${queryField}`)
+    }
+  )
+});
+// reset visits (for testing purposes)
+app.put("/ResetVisit", function (req, res) {
+  const queryId = req.query.id;
+  const queryField = req.query.field;
+  db.Visit.findOneAndUpdate(
+    { _id: queryId },
+    {
+      [queryField]: {
+        status: false, timestamp: null
+      }
+    }
+    , { new: true },
+    (err, doc) => {
+      if (err) return res.res.status(500).send({ error: err });
+      console.log(doc);
+      return res.send(`succesfully reset ${queryField}`)
     }
   )
 });

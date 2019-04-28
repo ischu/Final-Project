@@ -67,9 +67,9 @@ export const getDaysVisits = (date, userType, user, cb) => {
       console.log(res.data);
       console.log(date.toISOString())
       const visits = res.data;
-      cb(res.data);
+      
       return visits
-    })
+    }).then((visits)=>{cb(visits);})
     .catch(error => {
       // this.setState({
       //   errors: error.response.status
@@ -78,3 +78,7 @@ export const getDaysVisits = (date, userType, user, cb) => {
       // });
     });
 };
+export const updateVisit = (id, action) =>{
+  axios
+    .put(`MarkVisit?id=${id}&field=${action}`);
+} 

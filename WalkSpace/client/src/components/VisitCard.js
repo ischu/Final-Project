@@ -9,18 +9,18 @@ function VisitCard(props) {
                 {props.cancelStat ? "card-header has-background-danger" :
                     (props.completeStat ? "card-header has-background-success" :
                         (props.arriveStat ? "card-header has-background-info" : "card-header"))}>
-                
+
                 {// client will see name of employee visiting, employee will see name and address of client to visit
                     props.type ?
                         (<p className="card-header-title">
-                            {props.time} visit by {props.employeeName}
+                            {props.time} Visit by {props.employeeName}
                         </p>)
                         :
                         (<p className="card-header-title">
-                            {props.time} visit for {props.clientName} at {props.address}
+                            {props.time} Visit for {props.clientName} at {props.address}
                         </p>)
                 }
-                <a href="valid" className="card-header-icon" aria-label="more options">
+                <a className="card-header-icon" aria-label="more options">
                     <span className="icon">
                         <i className="fas fa-angle-down" aria-hidden="true"></i>
                     </span>
@@ -33,15 +33,29 @@ function VisitCard(props) {
                 </div>
             </div>
             <footer className="card-footer has-background-white-ter">
-                <Button className="card-footer-item has-text-info">
-                    <span>Arrive</span>
-                </Button>
+                <div id="button-item" className="card-footer-item ">
+                    {
+                        props.arriveStat ?
+                            (<Button className="has-text-center is-success is-fullwidth"
+                                onClick={props.updateVisit(props.id, "complete")}>
+                                <strong>Complete</strong>
+                            </Button>)
+                            :
+                            (<Button className="has-text-center is-info is-fullwidth"
+                                onClick={props.updateVisit(props.id, "arrive")}>
+                                <strong>Arrive</strong>
+                            </Button>)
+                    }
+                </div>
+                {/* NYI
                 <Button className="card-footer-item has-text-success">
                     <span>Change</span>
-                </Button>
-                <Button className="card-footer-item has-text-danger">
-                    <span>Cancel</span>
-                </Button>
+                </Button> */}
+                <div id="button-item" className="card-footer-item ">
+                    <Button className="has-text-center is-danger is-fullwidth">
+                        <strong>Cancel</strong>
+                    </Button>
+                </div>
             </footer>
         </div >
     )
