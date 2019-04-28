@@ -11,7 +11,7 @@ function ClientBox(props) {
                     <div>
                         <p className="heading has-text-primary">Pets</p>
                         {props.pets.map((pet) =>
-                            <p className="title">{pet.name}</p>
+                            <p key = {pet._id} className="title">{pet.name}</p>
                         )}
                     </div>
                 </div>

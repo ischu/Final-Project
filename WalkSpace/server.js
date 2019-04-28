@@ -163,10 +163,40 @@ app.put("/VisitArrive/:id", function (req, res) {
   )
 });
 // route for marking complete
-app.put("/VisitComplete", function (req, res) {
+app.put("/VisitComplete/:id", function (req, res) {
+  const queryId = req.params.id;
+  db.Visit.findOneAndUpdate(
+    { _id: queryId },
+    {
+      complete: {
+        status: true, timestamp: Date.now()
+      }
+    }
+    , { new: true },
+    (err, doc) => {
+      if (err) return res.res.status(500).send({ error: err });
+      console.log(doc);
+      return res.send("succesfully updated arrive")
+    }
+  )
 });
 // route for cancelling visit
-app.put("/VisitCancel", function (req, res) {
+app.put("/VisitCancel/:id", function (req, res) {
+  const queryId = req.params.id;
+  db.Visit.findOneAndUpdate(
+    { _id: queryId },
+    {
+      cancel: {
+        status: true, timestamp: Date.now()
+      }
+    }
+    , { new: true },
+    (err, doc) => {
+      if (err) return res.res.status(500).send({ error: err });
+      console.log(doc);
+      return res.send("succesfully updated arrive")
+    }
+  )
 });
 // Send every other request to the React app
 app.get("*", (req, res) => {

@@ -1,6 +1,5 @@
 import axios from "axios";
 import setAuthToken from "./setAuthToken";
-import jwt_decode from "jwt-decode";
 
 // Register User
 export const registerUser = (userData, history) => {

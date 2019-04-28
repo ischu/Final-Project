@@ -21,16 +21,48 @@ class Schedule extends React.Component {
     // finds visits for selected date for the logged in user (by id)
     getDaysVisits(this.state.date, this.context.type, this.context.user._id, this.dateClick);
   };
-  showVisits=()=>{getDaysVisits(this.state.date, this.context.type, this.context.user._id, this.dateClick)}
-  onChange = date => 
-  {this.setState({ date })
-  this.showVisits()};
-  dateClick = daysVisits => this.setState({visits:daysVisits})
+  // get visits for selected day
+  showVisits = () => { getDaysVisits(this.state.date, this.context.type, this.context.user._id, this.dateClick) }
+  // for setting date state with calendar
+  onChange = date => {
+    this.setState({ date })
+    this.showVisits()
+  };
+  // ?
+  dateClick = daysVisits => this.setState({ visits: daysVisits })
+  // Converts timestamp strings into local HH:mm AM/PM format
+  localTime = (d) => {
+    let date = new Date(d);
+    let timeString = date.toLocaleTimeString('en-US');
+    let secondlessString = timeString.replace(/:\d+\s/g, " ");
+    return secondlessString;
+  }
+  // turns context.type into a boolean- for rendering conditionals
+  isClient = (type) => {
+    if (type === "client") {
+      return true
+    } else {
+      return false
+    }
+  }
+  // converts "timeBlock codes" into equivalent words
+  visitTime = (num) => {
+    switch (num) {
+      case 0:
+        return "Morning";
+      case 1:
+        return "Midday";
+      case 2:
+        return "Evening";
+      default:
+        return "Midday"
+    }
+  }
   render() {
     let visits = this.state.visits;
     let slashDate = this.state.date.toLocaleDateString();
     return (
-      
+
       <Container className="has-background-white-ter">
         <NavBar></NavBar>
         <Calendar
@@ -38,32 +70,33 @@ class Schedule extends React.Component {
           value={this.state.date}
         />
         {/* Top level title-bar, with the days date */}
-        {/* <CurrentUser.Consumer>
-          {({ user }) => */}
-            <Level>
-              <div className="level-item has-background-primary">
-                <p className="title">{slashDate}</p>
-              </div>
-            </Level>
-          {/* }
-        </CurrentUser.Consumer> */}
+        <Level>
+          <div className="level-item has-background-primary">
+            <p className="title">{slashDate}</p>
+          </div>
+        </Level>
         {this.state.visits &&
           visits.map((visit) =>
-                <VisitCard
-                  name={visit.client.name}
-                  address={visit.client.address}
-                  time={visit.timeBlock}
-                  date={visit.date}
-                  arriveStat= {visit.arrive.status}
-                  completeStat={visit.complete.status}
-                  cancelStat={visit.cancel.status}
-                  // Date.prototype.toTimeString() .toLocaleTimeString('en-US')
-                  arriveTime= {visit.arrive.timestamp||"6:00"}
-                  completeTime= {visit.complete.timestamp || "6:30"}
-                  cancelTime= {visit.cancel.timestamp || "3:00"}
-                />
+            <VisitCard
+              key={visit._id}
+              // changes how cards render
+              type={this.isClient(this.context.type)}
+              clientName={visit.client.name}
+              employeeName={visit.employee.name}
+              address={visit.client.address}
+              time={this.visitTime(visit.timeBlock)}
+              date={visit.date}
+              // statuses are boolean
+              arriveStat={visit.arrive.status}
+              completeStat={visit.complete.status}
+              cancelStat={visit.cancel.status}
+              // allow employee to keep track of time and client to check visit's time
+              arriveTime={this.localTime(visit.arrive.timestamp) || "error"}
+              completeTime={this.localTime(visit.complete.timestamp) || "error"}
+              cancelTime={this.localTime(visit.cancel.timestamp) || "error"}
+            />
           )
-          }
+        }
       </Container>
     );
   }

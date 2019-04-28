@@ -8,7 +8,7 @@ import Profile from "./pages/profile";
 import ClientSearch from "./pages/clientsearch";
 import "./App.css";
 import setAuthToken from "./utils/setAuthToken";
-import { getClientByEmail, getEmployeeByEmail, getDocByEmail } from "./utils/docController";
+import {getDocByEmail } from "./utils/docController";
 // import {loginUser} from "./utils/authController";
 import CurrentUser from "./AppContext";
 
