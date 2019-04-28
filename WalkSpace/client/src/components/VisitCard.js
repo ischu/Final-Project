@@ -3,12 +3,12 @@ import { Button } from "react-bulma-components/full";
 
 function VisitCard(props) {
     return (
-        <div className=
-            // background color changes based on state of visit
-            {props.cancelled ? "card has-background-danger" :
-                (props.complete ? "card has-background-success" :
-                    (props.arrive ? "card has-background-info" : "card"))}>
-            <header className="card-header">
+        <div className= "card">
+            <header className=
+                        // background color changes based on state of visit
+                        {props.cancelStat ? "card-header has-background-danger" :
+                        (props.completeStat ? "card-header has-background-success" :
+                            (props.arriveStat ? "card-header has-background-info" : "card-header"))}>
                 <p className="card-header-title">
                     Visit for {props.name} at {props.address}
                 </p>
@@ -20,9 +20,9 @@ function VisitCard(props) {
             </header>
             <div className="card-content">
                 <div className="content">
-                    {props.time}
-                    <br />
-                    <time datetime="2016-1-1">{props.date}</time>
+                    <p>{props.time}</p>
+                    <br/>
+                    {props.arriveStat && <p>Arrived at: {props.arriveTime}</p>}
                 </div>
             </div>
             <footer className="card-footer has-background-white-ter">

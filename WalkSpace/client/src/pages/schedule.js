@@ -54,9 +54,13 @@ class Schedule extends React.Component {
                   address={visit.client.address}
                   time={visit.timeBlock}
                   date={visit.date}
-                  arrive={visit.arrive}
-                  complete={visit.complete}
-                  cancelled={visit.cancelled}
+                  arriveStat= {visit.arrive.status}
+                  completeStat={visit.complete.status}
+                  cancelStat={visit.cancel.status}
+                  // Date.prototype.toTimeString() .toLocaleTimeString('en-US')
+                  arriveTime= {visit.arrive.timestamp||"6:00"}
+                  completeTime= {visit.complete.timestamp || "6:30"}
+                  cancelTime= {visit.cancel.timestamp || "3:00"}
                 />
           )
           }
