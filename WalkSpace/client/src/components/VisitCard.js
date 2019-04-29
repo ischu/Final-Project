@@ -6,8 +6,8 @@ function VisitCard(props) {
         <div className="card visitCard">
             <header className=
                 // background color changes based on state of visit
-                {props.cancelStat ? "card-header has-background-danger" :
-                    (props.completeStat ? "card-header has-background-success" :
+                {props.completeStat ? "card-header has-background-success" :
+                    (props.cancelStat ? "card-header has-background-danger" :
                         (props.arriveStat ? "card-header has-background-info" : "card-header"))}>
 
                 {// client will see name of employee visiting, employee will see name and address of client to visit
@@ -36,30 +36,64 @@ function VisitCard(props) {
                             {props.arriveStat ? (<p className="has-text-dark">Arrived at: {props.timeFormat(props.arriveTime)}</p>) : <p></p>}
                         </div>
                         <div className="column">
-                            {props.completeStat ? (<p className="has-text-dark">Completed at: {props.timeFormat(props.completeTime)}</p>) 
-                            : (props.cancelStat ? (<p className="has-text-danger">Cancelled</p>) : <p></p>)}
+                            {props.completeStat ? (<p className="has-text-dark">Completed at: {props.timeFormat(props.completeTime)}</p>)
+                                : (props.cancelStat ? (<p className="has-text-danger">Cancelled</p>) : <p></p>)}
                         </div>
-                        <div className="column">
-                            {/* <Button className="button is-light">More Info</Button> */}
-                        </div>
+                        {/* clients can click to cancel visit */}
+                        {// cancel button only available before arrival
+                            props.arriveStat ?
+                                <React.Fragment />
+                                :
+                                props.completeStat ?
+                                    <React.Fragment />
+                                    :
+                                    props.type ?
+                                        (<button id="button-item" className="button">
+                                            {props.updateVisit(props.id, "cancel", props.showVisit)}
+                                        </button>)
+                                        :
+                                        (<React.Fragment />)
+                        }
+                        {/* info button */}
+                        {props.type ?
+                            <div className="column">
+                                <Button id="button-item" className="has-text-center is-fullwidth button is-dark is-inverted">
+                                    Handler Info
+                            </Button>
+                            </div> :
+                            <div className="column">
+                                <Button id="button-item" className="has-text-center is-fullwidth button is-dark is-inverted">
+                                    Client Info
+                                </Button>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
-            <footer className="card-footer has-background-white-ter">
-                <div id="button-item" className="card-footer-item ">
-                    {props.updateVisit(props.id, "arrive", props.showVisit)}
-                </div>
-                <div id="button-item" className="card-footer-item">
-                    {props.updateVisit(props.id, "complete", props.showVisit)}
-                </div>
-                {/* NYI
+            {/* clients do not see footer with update visit buttons 
+                completed and cancelled visits do not show buttons*/}
+            {props.type || props.completeStat || props.cancelStat ?
+                <React.Fragment />
+                :
+                (<footer className="card-footer has-background-white-ter">
+                    {props.arriveStat ?
+                        <div id="button-item" className="card-footer-item">
+                            {props.updateVisit(props.id, "complete", props.showVisit)}
+                        </div>
+                        :
+                        <div id="button-item" className="card-footer-item ">
+                            {props.updateVisit(props.id, "arrive", props.showVisit)}
+                        </div>
+                    }
+                    {/* NYI
                 <Button className="card-footer-item has-text-success">
                     <span>Change</span>
                 </Button> */}
-                <div id="button-item" className="card-footer-item">
-                    {props.updateVisit(props.id, "cancel", props.showVisit)}
-                </div>
-            </footer>
+                    <div id="button-item" className="card-footer-item">
+                        {props.updateVisit(props.id, "cancel", props.showVisit)}
+                    </div>
+                </footer>)
+            }
         </div >
     )
 
