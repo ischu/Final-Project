@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container } from "react-bulma-components/full";
+import { Container, Level } from "react-bulma-components/full";
 import NavBar from "../components/NavBar";
 import UserBox from "../components/UserBox";
 import ClientBox from "../components/ClientBox";
@@ -23,20 +23,25 @@ class Profile extends Component {
             <React.Fragment>
                 <NavBar></NavBar>
                 <Container className="has-background-white-ter">
+                    <Level>
+                        <div className="level-item has-text-centered has-background-primary">
+                            <p className="title">Profile</p>
+                        </div>
+                    </Level>
                     {/* short circuit will delay render until data has been fetched */}
                     {this.context.user && this.context.user.phone &&
                         <CurrentUser.Consumer>
-                            {({ user, type }) =>
+                            {({ user }) =>
                                 <UserBox
-                                    section="Profile"
                                     key={user._id}
                                     name={user.name}
-                                    email={user.email}
-                                    phone={user.phone}
+                                    headingTwo="address"
                                     address={user.address}
+                                    headingThree="email"
+                                    email={user.email}
+                                    headingFour="phone"
+                                    phone={user.phone}
                                     convertPhone={this.convertPhone}
-                                    type={type}
-                                    isPet={false}
                                 >
                                 </UserBox>
                             }

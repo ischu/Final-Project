@@ -6,30 +6,52 @@ import UserBox from './UserBox';
 function ClientBox(props) {
     return (
         <React.Fragment>
-
+            <Level>
+                <div className="level-item has-text-centered has-background-primary">
+                    <p className="title">Pet Info</p>
+                </div>
+            </Level>
             <div className="columns">
-                <div className="column is-4 is-offset-1">
-                    <p className="heading has-text-primary">Pets</p>
+                <div className="column is-12">
                     {props.pets.map((pet) =>
-                        <p key={pet._id} className="title">{pet.name}</p>
+                        <React.Fragment>
+                            <UserBox
+                                key={pet._id}
+                                name={pet.name}
+                                headingTwo="breed"
+                                address={pet.breed}
+                                headingThree="gender"
+                                email={pet.sex}
+                                headingFour="age"
+                                phone={pet.age}
+                            >
+                            </UserBox>
+                            <hr></hr>
+                        </React.Fragment>
                     )}
                 </div>
             </div>
-            {/* turn these sections into userboxes */}
+            <Level>
+                <div className="level-item has-text-centered has-background-primary">
+                    <p className="title">Emergency Contact</p>
+                </div>
+            </Level>
             <div className="columns">
                 <div className="column is-12">
                     {/* <p className="heading has-text-primary">Emergency Contact</p> */}
                     {props.contact.map((info) =>
                         <UserBox
                             key="1"
-                            section="Emergency Contact"
                             name={info.name}
-                            email={info.email}
-                            phone={info.phone}
+                            headingTwo="address"
                             address={info.address}
+                            headingThree="email"
+                            email={info.email}
+                            headingFour="phone"
+                            phone={info.phone}
                             convertPhone={props.convertPhone}
                             isPet={false}
-                            // type={type}
+                        // type={type}
                         >
                         </UserBox>
                     )}
