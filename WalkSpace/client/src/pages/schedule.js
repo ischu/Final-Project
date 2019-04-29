@@ -22,17 +22,12 @@ class Schedule extends React.Component {
     // component mounts with today's visits shown
     const today = new Date()
     // const user = await this.userFunc(this.context.user.type)
-    this.changeDate(today)
-    // console.log(user)
+    const setStates = await this.changeDate(today)
+    console.log(setStates)
   };
-  // userFunc(){
-  //   if(something === undefined){
-  //     this.userFunc()
-  //   }else if(something!==undefined){
-  //     console.log("done")
-  //     return true
-  //   }
-  // }
+  userFunc=(date)=>{
+    this.changeDate(date).then(res=>this.showVisits())
+  }
   // gets visits for selected date for the logged in user (by id)
   showVisits = () => { getDaysVisits(this.state.date, this.context.type, this.context.user._id, this.setVisits) }
   // sets up promise so date is set before vist is shown
@@ -145,7 +140,7 @@ class Schedule extends React.Component {
             visits.map((visit) =>
               <VisitCard
                 key={visit._id}
-                // changes how cards render
+                // changes how cards render- boolean
                 type={this.isClient(this.context.type)}
                 // card info
                 clientName={visit.client.name}

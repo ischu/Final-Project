@@ -1,37 +1,40 @@
 import React from 'react';
 import { Level } from 'react-bulma-components';
+import UserBox from './UserBox';
 // TODO
 // Create collapsible cards for pets and contacts
 function ClientBox(props) {
     return (
         <React.Fragment>
 
-            <Level>
-                <div className="level-left level-item">
-                    <div>
-                        <p className="heading has-text-primary">Pets</p>
-                        {props.pets.map((pet) =>
-                            <p key = {pet._id} className="title">{pet.name}</p>
-                        )}
-                    </div>
+            <div className="columns">
+                <div className="column is-4 is-offset-1">
+                    <p className="heading has-text-primary">Pets</p>
+                    {props.pets.map((pet) =>
+                        <p key={pet._id} className="title">{pet.name}</p>
+                    )}
                 </div>
-            </Level>
-            <Level>
-                <div className="level-left level-item">
-                    <div>
-                        <p className="heading has-text-primary">Emergency Contact</p>
-                        <p className="title">{props.contact}</p>
-                    </div>
+            </div>
+            {/* turn these sections into userboxes */}
+            <div className="columns">
+                <div className="column is-12">
+                    {/* <p className="heading has-text-primary">Emergency Contact</p> */}
+                    {props.contact.map((info) =>
+                        <UserBox
+                            key="1"
+                            section="Emergency Contact"
+                            name={info.name}
+                            email={info.email}
+                            phone={info.phone}
+                            address={info.address}
+                            convertPhone={props.convertPhone}
+                            isPet={false}
+                            // type={type}
+                        >
+                        </UserBox>
+                    )}
                 </div>
-            </Level>
-            <Level>
-                <div className="level-left level-item">
-                    <div>
-                        <p className="heading has-text-primary">Schedule</p>
-                        <p className="title">Visit1</p>
-                    </div>
-                </div>
-            </Level>
+            </div>
         </React.Fragment>
     )
 }

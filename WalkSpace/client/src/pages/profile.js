@@ -9,7 +9,14 @@ class Profile extends Component {
 
     componentDidMount() {
     }
-
+    convertPhone = (number) => {
+        let num = number.toString();
+        let areaCode = num.slice(0, 3);
+        let middleThree = num.slice(3, 6);
+        let lastFour = num.slice(6, 10);
+        let phoneFormat = `(${areaCode}) ${middleThree}-${lastFour}`;
+        return phoneFormat
+    }
     render() {
         console.log(this.context.user)
         return (
@@ -17,26 +24,31 @@ class Profile extends Component {
                 <NavBar></NavBar>
                 <Container className="has-background-white-ter">
                     {/* short circuit will delay render until data has been fetched */}
-                    {this.context.user &&
-                    <CurrentUser.Consumer>
-                        {({ user }) =>
-                        <UserBox
-                            key={user._id}
-                            name={user.name}
-                            email={user.email}
-                            phone={user.phone}
-                            address={user.address}
-                        >
-                        </UserBox>
-                        }
-                    </CurrentUser.Consumer>
+                    {this.context.user && this.context.user.phone &&
+                        <CurrentUser.Consumer>
+                            {({ user, type }) =>
+                                <UserBox
+                                    section="Profile"
+                                    key={user._id}
+                                    name={user.name}
+                                    email={user.email}
+                                    phone={user.phone}
+                                    address={user.address}
+                                    convertPhone={this.convertPhone}
+                                    type={type}
+                                    isPet={false}
+                                >
+                                </UserBox>
+                            }
+                        </CurrentUser.Consumer>
                     }
                     {/* this section will only render if user is client */}
-                    {this.context.user && this.context.type==="client" && this.context.user.pets &&
+                    {this.context.user && this.context.type === "client" && this.context.user.pets &&
                         <ClientBox
                             key={this.context.user._id}
                             pets={this.context.user.pets}
-                            contact={this.context.user.name}
+                            contact={this.context.user.emergencyContact}
+                            convertPhone={this.convertPhone}
                         />
                     }
                 </Container>
