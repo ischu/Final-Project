@@ -3,7 +3,7 @@ import { Button } from "react-bulma-components/full";
 
 function VisitCard(props) {
     return (
-        <div className="card">
+        <div className="card visitCard">
             <header className=
                 // background color changes based on state of visit
                 {props.cancelStat ? "card-header has-background-danger" :
@@ -28,33 +28,35 @@ function VisitCard(props) {
             </header>
             <div className="card-content">
                 <div className="content">
-                    {props.arriveStat && <p className="has-text-dark">Arrived at: {props.arriveTime}</p>}
-                    {props.arriveStat && <p className="has-text-dark">Completed at: {props.completeTime}</p>}
+                    <div className="columns">
+                        <div className="column">
+                        {props.arriveStat ? (<p className="has-text-dark">Arrived at: {props.timeFormat(props.arriveTime)}</p>) : <p></p>}
+                        </div>
+                        <div className="column">
+                        {props.completeStat ? (<p className="has-text-dark">Completed at: {props.timeFormat(props.completeTime)}</p>) : <p></p>}
+                        </div>
+                        <div className="column">
+                            Visit type: {props.visitType}
+                        </div>
+                        <div className="column">
+                            <Button>More Info</Button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <footer className="card-footer has-background-white-ter">
                 <div id="button-item" className="card-footer-item ">
-                    {
-                        props.arriveStat ?
-                            (<Button className="has-text-center is-success is-fullwidth"
-                                onClick={props.updateVisit(props.id, "complete")}>
-                                <strong>Complete</strong>
-                            </Button>)
-                            :
-                            (<Button className="has-text-center is-info is-fullwidth"
-                                onClick={props.updateVisit(props.id, "arrive")}>
-                                <strong>Arrive</strong>
-                            </Button>)
-                    }
+                    {props.updateVisit(props.id, "arrive", "info")}
+                </div>
+                <div id="button-item" className="card-footer-item">
+                    {props.updateVisit(props.id, "complete", "success")}
                 </div>
                 {/* NYI
                 <Button className="card-footer-item has-text-success">
                     <span>Change</span>
                 </Button> */}
-                <div id="button-item" className="card-footer-item ">
-                    <Button className="has-text-center is-danger is-fullwidth">
-                        <strong>Cancel</strong>
-                    </Button>
+                <div id="button-item" className="card-footer-item">
+                    {props.updateVisit(props.id, "cancel", "danger")}
                 </div>
             </footer>
         </div >

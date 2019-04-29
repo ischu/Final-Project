@@ -67,7 +67,6 @@ export const getDaysVisits = (date, userType, user, cb) => {
       console.log(res.data);
       console.log(date.toISOString())
       const visits = res.data;
-      
       return visits
     }).then((visits)=>{cb(visits);})
     .catch(error => {

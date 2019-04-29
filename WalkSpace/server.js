@@ -137,13 +137,13 @@ app.get("/UserVisitsOnDate", function (req, res) {
   if (req.query.client) {
     var user = "client"
   }
-  db.Visit.find({ [user]: { _id: req.query[user] }, date: { $regex: regex } }, function (err, visits) {
+  db.Visit.find({ [user]: { _id: req.query[user] }, 'date': { $regex: regex } }, function (err, visits) {
     if (err) {
       res.send(err);
     }
     console.log(visits);
     res.json(visits);
-  }).populate(popEmployeeAndClient);
+  }).populate(popEmployeeAndClient).sort({'timeBlock':1});
 });
 // route for marking arrival
 app.put("/VisitArrive/:id", function (req, res) {
@@ -204,16 +204,17 @@ app.put("/VisitCancel/:id", function (req, res) {
 app.put("/MarkVisit", function (req, res) {
   const queryId = req.query.id;
   const queryField = req.query.field;
+  const currentTime = new Date();
   db.Visit.findOneAndUpdate(
     { _id: queryId },
     {
       [queryField]: {
-        status: true, timestamp: Date.now()
+        status: true, timestamp: currentTime
       }
     }
     , { new: true },
     (err, doc) => {
-      if (err) return res.res.status(500).send({ error: err });
+      if (err) return res.status(500).send({ error: err });
       console.log(doc);
       return res.send(`succesfully updated ${queryField}`)
     }
