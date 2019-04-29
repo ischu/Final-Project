@@ -21,6 +21,7 @@ var PicSchema = new Schema({
 var PetSchema = new Schema({
     name: String,
     breed: String,
+    sex: String,
     age: Number,
     pic: [PicSchema],
     createdAt: Date

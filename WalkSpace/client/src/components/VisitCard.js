@@ -30,16 +30,17 @@ function VisitCard(props) {
                 <div className="content">
                     <div className="columns">
                         <div className="column">
-                        {props.arriveStat ? (<p className="has-text-dark">Arrived at: {props.timeFormat(props.arriveTime)}</p>) : <p></p>}
-                        </div>
-                        <div className="column">
-                        {props.completeStat ? (<p className="has-text-dark">Completed at: {props.timeFormat(props.completeTime)}</p>) : <p></p>}
-                        </div>
-                        <div className="column">
                             Visit type: {props.visitType}
                         </div>
                         <div className="column">
-                            <Button>More Info</Button>
+                            {props.arriveStat ? (<p className="has-text-dark">Arrived at: {props.timeFormat(props.arriveTime)}</p>) : <p></p>}
+                        </div>
+                        <div className="column">
+                            {props.completeStat ? (<p className="has-text-dark">Completed at: {props.timeFormat(props.completeTime)}</p>) 
+                            : (props.cancelStat ? (<p className="has-text-danger">Cancelled</p>) : <p></p>)}
+                        </div>
+                        <div className="column">
+                            <Button className="button is-light">More Info</Button>
                         </div>
                     </div>
                 </div>

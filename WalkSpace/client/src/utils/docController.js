@@ -78,6 +78,7 @@ export const getDaysVisits = (date, userType, user, cb) => {
     });
 };
 export const updateVisit = (id, action) =>{
-  axios
-    .put(`MarkVisit?id=${id}&field=${action}`);
+  const queryId = id;
+   axios
+    .put(`MarkVisit?id=${queryId}&field=${action}`);
 } 

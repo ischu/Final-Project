@@ -39,7 +39,8 @@ var db = require("./models");
 mongoose.set('useFindAndModify', false);
 // for debugging
 mongoose.set('debug', true);
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/WalkSpace", { useNewUrlParser: true })
+// mongodb://heroku_zk4ms2fz:7ekgb9vev1t97ftjjhln24q0vp@ds155263.mlab.com:55263/heroku_zk4ms2fz
+mongoose.connect("mongodb://heroku_zk4ms2fz:7ekgb9vev1t97ftjjhln24q0vp@ds155263.mlab.com:55263/heroku_zk4ms2fz"|| "mongodb://localhost:27017/WalkSpace", { useNewUrlParser: true })
 
 // API routes
 app.use("/api/users", users);
@@ -202,7 +203,9 @@ app.put("/VisitCancel/:id", function (req, res) {
 // route for Marking visit arrive, complete, or cancel
 // combination of three routes above
 app.put("/MarkVisit", function (req, res) {
+  // id of visit to update
   const queryId = req.query.id;
+  // field to update (arrive, complete, or cancel)
   const queryField = req.query.field;
   const currentTime = new Date();
   db.Visit.findOneAndUpdate(
@@ -215,7 +218,7 @@ app.put("/MarkVisit", function (req, res) {
     , { new: true },
     (err, doc) => {
       if (err) return res.status(500).send({ error: err });
-      console.log(doc);
+      console.log(doc.queryField);
       return res.send(`succesfully updated ${queryField}`)
     }
   )
