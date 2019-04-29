@@ -87,10 +87,10 @@ class Schedule extends React.Component {
     }
   }
   // click handler for update visit buttons
-  updateButtonClick(id, action) {
+  updateButtonClick=(id, action, cb)=>{
     function handleClick(e) {
       e.preventDefault();
-      updateVisit(e.target.id, action)
+      updateVisit(e.target.id, action).then(cb())
       console.log('The button was clicked.');
     }
     function buttonColor(action) {
@@ -164,6 +164,7 @@ class Schedule extends React.Component {
                 cancelTime={visit.cancel.timestamp}
                 timeFormat={this.localTime}
                 updateVisit={this.updateButtonClick}
+                showVisit={this.showVisits}
                 // id for targeting click events
                 id={visit._id}
               />

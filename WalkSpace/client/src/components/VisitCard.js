@@ -40,24 +40,24 @@ function VisitCard(props) {
                             : (props.cancelStat ? (<p className="has-text-danger">Cancelled</p>) : <p></p>)}
                         </div>
                         <div className="column">
-                            <Button className="button is-light">More Info</Button>
+                            {/* <Button className="button is-light">More Info</Button> */}
                         </div>
                     </div>
                 </div>
             </div>
             <footer className="card-footer has-background-white-ter">
                 <div id="button-item" className="card-footer-item ">
-                    {props.updateVisit(props.id, "arrive", "info")}
+                    {props.updateVisit(props.id, "arrive", props.showVisit)}
                 </div>
                 <div id="button-item" className="card-footer-item">
-                    {props.updateVisit(props.id, "complete", "success")}
+                    {props.updateVisit(props.id, "complete", props.showVisit)}
                 </div>
                 {/* NYI
                 <Button className="card-footer-item has-text-success">
                     <span>Change</span>
                 </Button> */}
                 <div id="button-item" className="card-footer-item">
-                    {props.updateVisit(props.id, "cancel", "danger")}
+                    {props.updateVisit(props.id, "cancel", props.showVisit)}
                 </div>
             </footer>
         </div >

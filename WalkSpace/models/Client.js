@@ -4,11 +4,11 @@ const Schema = mongoose.Schema;
 // images are a big bucket of worms with Mongo
 //   for now the idea is that the String will be a path to the image.
 //   But, there are alternative ways of doing this as binary data
-var PicSchema = new Schema({
-    title: String,
-    createdAt: Date,
-    img: Buffer
-});
+// var PicSchema = new Schema({
+//     title: String,
+//     createdAt: Date,
+//     img: Buffer
+// });
 // var VisitSchema = new Schema({
 //     employee: String,
 //     type: String,
@@ -23,7 +23,7 @@ var PetSchema = new Schema({
     breed: String,
     sex: String,
     age: Number,
-    pic: [PicSchema],
+    // pic: [PicSchema],
     createdAt: Date
 });
 // for storing client info
@@ -37,9 +37,6 @@ var ClientSchema = new Schema({
     emergencyContact: {
         name: String,
         phone: Number,
-        email: String,
-        address: String,
-        relation: String
     },
     createdAt: {
         type: Date,

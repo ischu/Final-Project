@@ -80,5 +80,8 @@ export const getDaysVisits = (date, userType, user, cb) => {
 export const updateVisit = (id, action) =>{
   const queryId = id;
    axios
-    .put(`MarkVisit?id=${queryId}&field=${action}`);
+    .put(`MarkVisit?id=${queryId}&field=${action}`)
+    return new Promise((resolve) => {
+      resolve();
+    });
 } 

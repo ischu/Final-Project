@@ -40,7 +40,7 @@ mongoose.set('useFindAndModify', false);
 // for debugging
 mongoose.set('debug', true);
 // mongodb://heroku_zk4ms2fz:7ekgb9vev1t97ftjjhln24q0vp@ds155263.mlab.com:55263/heroku_zk4ms2fz
-mongoose.connect("mongodb://heroku_zk4ms2fz:7ekgb9vev1t97ftjjhln24q0vp@ds155263.mlab.com:55263/heroku_zk4ms2fz"|| "mongodb://localhost:27017/WalkSpace", { useNewUrlParser: true })
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/WalkSpace", { useNewUrlParser: true })
 
 // API routes
 app.use("/api/users", users);
