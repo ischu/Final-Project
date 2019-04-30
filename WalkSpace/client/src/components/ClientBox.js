@@ -7,8 +7,8 @@ function ClientBox(props) {
     return (
         <React.Fragment>
             <Level>
-                <div className="level-item has-text-centered has-background-primary">
-                    <p className="title">Pet Info</p>
+                <div className="level-item has-text-centered has-background-grey-dark">
+                    <p id="levelWords" className="title has-text-white-bis">Pet info</p>
                 </div>
             </Level>
             <div className="columns">
@@ -32,8 +32,8 @@ function ClientBox(props) {
                 </div>
             </div>
             <Level>
-                <div className="level-item has-text-centered has-background-primary">
-                    <p className="title">Emergency Contact</p>
+                <div className="level-item has-text-centered has-background-grey-dark">
+                    <p id="levelWords" className="title has-text-white-bis">Emergency Contact</p>
                 </div>
             </Level>
             <div className="columns">

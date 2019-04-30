@@ -3,12 +3,15 @@ import { Button } from "react-bulma-components/full";
 
 function VisitCard(props) {
     return (
-        <div className="card visitCard">
+        <div className=
+            {props.completeStat ? "card visitCard-success" :
+                (props.cancelStat ? "card visitCard-danger" :
+                    (props.arriveStat ? "card visitCard-info" : "card visitCard1"))}>
             <header className=
                 // background color changes based on state of visit
                 {props.completeStat ? "card-header has-background-success" :
                     (props.cancelStat ? "card-header has-background-danger" :
-                        (props.arriveStat ? "card-header has-background-info" : "card-header"))}>
+                        (props.arriveStat ? "card-header has-background-info" : "card-header has-background-white-ter"))}>
 
                 {// client will see name of employee visiting, employee will see name and address of client to visit
                     props.type ?
@@ -20,13 +23,30 @@ function VisitCard(props) {
                             {props.time} Visit for {props.clientName} at {props.address}
                         </p>)
                 }
+                {/* clients can click to cancel visit */}
+                {// cancel button only available before arrival
+                    props.arriveStat ?
+                        <React.Fragment />
+                        :
+                        props.completeStat ?
+                            <React.Fragment />
+                            :
+                            props.type ?
+                                (
+                                    <div className="column is-2 is-offset-1">
+                                        {props.updateVisit(props.id, "cancel", props.showVisit)}
+                                    </div>
+                                )
+                                :
+                                (<React.Fragment />)
+                }
                 <a className="card-header-icon" aria-label="more options">
                     <span className="icon">
                         <i className="fas fa-angle-down" aria-hidden="true"></i>
                     </span>
                 </a>
             </header>
-            <div className="card-content">
+            <div className="card-content background-is-white-ter">
                 <div className="content">
                     <div className="columns">
                         <div className="column">
@@ -39,21 +59,6 @@ function VisitCard(props) {
                             {props.completeStat ? (<p className="has-text-dark">Completed at: {props.timeFormat(props.completeTime)}</p>)
                                 : (props.cancelStat ? (<p className="has-text-danger">Cancelled</p>) : <p></p>)}
                         </div>
-                        {/* clients can click to cancel visit */}
-                        {// cancel button only available before arrival
-                            props.arriveStat ?
-                                <React.Fragment />
-                                :
-                                props.completeStat ?
-                                    <React.Fragment />
-                                    :
-                                    props.type ?
-                                        (<button id="button-item" className="button">
-                                            {props.updateVisit(props.id, "cancel", props.showVisit)}
-                                        </button>)
-                                        :
-                                        (<React.Fragment />)
-                        }
                         {/* info button */}
                         {props.type ?
                             <div className="column">

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Level } from "react-bulma-components/full";
+import { Section, Container, Level } from "react-bulma-components/full";
 import NavBar from "../components/NavBar";
 import UserBox from "../components/UserBox";
 import ClientBox from "../components/ClientBox";
@@ -22,41 +22,43 @@ class Profile extends Component {
         return (
             <React.Fragment>
                 <NavBar></NavBar>
-                <Container className="has-background-white-ter">
-                    <Level>
-                        <div className="level-item has-text-centered has-background-primary">
-                            <p className="title">Profile</p>
-                        </div>
-                    </Level>
-                    {/* short circuit will delay render until data has been fetched */}
-                    {this.context.user && this.context.user.phone &&
-                        <CurrentUser.Consumer>
-                            {({ user }) =>
-                                <UserBox
-                                    key={user._id}
-                                    name={user.name}
-                                    headingTwo="address"
-                                    address={user.address}
-                                    headingThree="email"
-                                    email={user.email}
-                                    headingFour="phone"
-                                    phone={user.phone}
-                                    convertPhone={this.convertPhone}
-                                >
-                                </UserBox>
-                            }
-                        </CurrentUser.Consumer>
-                    }
-                    {/* this section will only render if user is client */}
-                    {this.context.user && this.context.type === "client" && this.context.user.pets &&
-                        <ClientBox
-                            key={this.context.user._id}
-                            pets={this.context.user.pets}
-                            contact={this.context.user.emergencyContact}
-                            convertPhone={this.convertPhone}
-                        />
-                    }
-                </Container>
+                <Section >
+                    <Container id="profileContainer" className="has-background-white-bis">
+                        <Level>
+                            <div className="level-item has-text-centered has-background-grey-dark">
+                                <p id="levelWords" className="title has-text-white-bis">Profile</p>
+                            </div>
+                        </Level>
+                        {/* short circuit will delay render until data has been fetched */}
+                        {this.context.user && this.context.user.phone &&
+                            <CurrentUser.Consumer>
+                                {({ user }) =>
+                                    <UserBox
+                                        key={user._id}
+                                        name={user.name}
+                                        headingTwo="address"
+                                        address={user.address}
+                                        headingThree="email"
+                                        email={user.email}
+                                        headingFour="phone"
+                                        phone={user.phone}
+                                        convertPhone={this.convertPhone}
+                                    >
+                                    </UserBox>
+                                }
+                            </CurrentUser.Consumer>
+                        }
+                        {/* this section will only render if user is client */}
+                        {this.context.user && this.context.type === "client" && this.context.user.pets &&
+                            <ClientBox
+                                key={this.context.user._id}
+                                pets={this.context.user.pets}
+                                contact={this.context.user.emergencyContact}
+                                convertPhone={this.convertPhone}
+                            />
+                        }
+                    </Container>
+                </Section>
             </React.Fragment>
         );
     }

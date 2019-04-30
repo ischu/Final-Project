@@ -4,7 +4,6 @@ import { Level } from 'react-bulma-components';
 function UserBox(props) {
     return (
         <React.Fragment>
-
             <div className="columns">
                 <div className="column is-4 is-offset-1">
                     <div>
@@ -34,8 +33,12 @@ function UserBox(props) {
                 <div className="column is-4 is-offset-2">
                     <p className="heading has-text-primary">
                         {props.headingFour}
-                    </p>                    
-                    <p className="title">{props.phone}</p>
+                    </p>
+                    {isNaN(props.phone) ?
+                        <p className="title">{props.phone}</p>
+                        :
+                        <p className="title">{props.convertPhone(props.phone)}</p>
+                    }
                 </div>
             </div>
         </React.Fragment>

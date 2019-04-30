@@ -25,8 +25,8 @@ class Schedule extends React.Component {
     const setStates = await this.changeDate(today)
     console.log(setStates)
   };
-  userFunc=(date)=>{
-    this.changeDate(date).then(res=>this.showVisits())
+  userFunc = (date) => {
+    this.changeDate(date).then(res => this.showVisits())
   }
   // gets visits for selected date for the logged in user (by id)
   showVisits = () => { getDaysVisits(this.state.date, this.context.type, this.context.user._id, this.setVisits) }
@@ -81,23 +81,24 @@ class Schedule extends React.Component {
         return " "
     }
   }
-  // click handler for update visit buttons
-  updateButtonClick=(id, action, cb)=>{
+  updateButtonClick = (id, action, cb) => {
+    // click handler for "update visit" buttons
     function handleClick(e) {
       e.preventDefault();
       updateVisit(e.target.id, action).then(cb())
       console.log('The button was clicked.');
     }
+    // colors button 
     function buttonColor(action) {
       switch (action) {
         case "arrive":
-          return "has-text-center is-fullwidth is-info";
+          return "has-text-center is-inverted is-fullwidth is-info";
         case "complete":
-          return "has-text-center is-fullwidth is-success";
+          return "has-text-center is-inverted is-fullwidth is-success";
         case "cancel":
-          return "has-text-center is-fullwidth is-danger";
+          return "has-text-center is-inverted is-fullwidth is-danger";
         default:
-          return "has-text-center is-fullwidth is-primary"
+          return "has-text-center is-inverted is-fullwidth is-primary"
       }
     }
     return (
@@ -107,36 +108,37 @@ class Schedule extends React.Component {
     );
   }
   render() {
-    let visits = this.state.visits;
     let slashDate = this.state.date.toLocaleDateString();
-    if (this.state.loading === true) {
-      return (
-        <div>
-          Loading
-        </div>
-      )
-    } else if (this.state.loading === false)
-      return (
+    let visits = this.state.visits;
+    let visitCount = this.state.visits.length;
+    var noVisitDay = (visitCount===0)? true : false;
+    return (
+      <React.Fragment>
+        <NavBar></NavBar>
 
-        <Container className="has-background-white-ter">
-          <NavBar></NavBar>
+        <Level id="calendarLevel">
+          <div id="calendarLevel" className="level-item">
+            <Calendar id="calendar"
+              calendarType="US"
+              onChange={this.changeDate}
+              value={this.state.date}
+            />
+          </div>
+        </Level>
+        <Container className="has-background-white-bis">
+          {/* Top title-bar, with the days date */}
           <Level>
-            <div className="level-item">
-              <Calendar
-                calendarType="US"
-                onChange={this.changeDate}
-                value={this.state.date}
-              />
-            </div>
-          </Level>
-          {/* Top level title-bar, with the days date */}
-          <Level>
-            <div className="level-item has-background-primary">
-              <p className="title">{slashDate}</p>
+            <div className="level-item has-background-grey-dark">
+              <p id="levelWords" className="title has-text-white-bis">{slashDate}</p>
             </div>
           </Level>
           {/* only loads after context and visits are loaded */}
           {this.context.type && this.state.visits &&
+            noVisitDay?
+            <Level className="has-text-centered">
+              <p id="levelWords" className="level-item title">No Visits Today!</p>
+            </Level>
+            :
             visits.map((visit) =>
               <VisitCard
                 key={visit._id}
@@ -166,7 +168,8 @@ class Schedule extends React.Component {
             )
           }
         </Container>
-      );
+      </React.Fragment>
+    );
   }
 }
 Schedule.contextType = CurrentUser;
