@@ -34,7 +34,7 @@ function UserBox(props) {
                     <p className="heading has-text-primary">
                         {props.headingFour}
                     </p>
-                    {isNaN(props.phone) ?
+                    {props.isPet ?
                         <p className="title">{props.phone}</p>
                         :
                         <p className="title">{props.convertPhone(props.phone)}</p>

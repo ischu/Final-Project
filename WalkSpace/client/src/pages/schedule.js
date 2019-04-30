@@ -83,11 +83,11 @@ class Schedule extends React.Component {
         return " "
     }
   }
-  updateButtonClick = (id, action, cb) => {
+  updateButtonClick = (visitId, action, cb) => {
     // click handler for "update visit" buttons
     function handleClick(e) {
       e.preventDefault();
-      updateVisit(e.target.id, action).then(cb())
+      updateVisit(visitId, action).then(cb())
       console.log('The button was clicked.');
     }
     // colors button 
@@ -104,7 +104,7 @@ class Schedule extends React.Component {
       }
     }
     return (
-      <Button id={id} onClick={handleClick} className={buttonColor(action)}>
+      <Button id={visitId} onClick={handleClick} className={buttonColor(action)}>
         <strong>{action}</strong>
       </Button>
     );
@@ -118,7 +118,7 @@ class Schedule extends React.Component {
   //   }
   // }
 
-  
+
   // infoButtonClick = (index, cb) => {
   //   function handleClick(e) {
   //     e.preventDefault();
@@ -143,7 +143,7 @@ class Schedule extends React.Component {
   //     );
   //   }
   // }
-  secretClick(e){
+  secretClick(e) {
     e.preventDefault()
     resetAllVisits()
     console.log("secret click")
@@ -177,13 +177,15 @@ class Schedule extends React.Component {
             noVisitDay ?
             <Container>
               <Level className="has-text-centered">
-                <p onClick={this.secretClick}id="levelWords" className="level-item title has-text-grey-dark">No Visits Today!</p>
+                <p onClick={this.secretClick} id="levelWords" className="level-item title has-text-grey-dark">No Visits Today!</p>
               </Level>
             </Container>
             :
             visits.map((visit, index) =>
               <VisitCard
                 key={visit._id}
+                // id for targeting click events
+                id={visit._id}
                 // changes how cards render- boolean
                 type={this.isClient(this.context.type)}
                 // card info
@@ -204,8 +206,6 @@ class Schedule extends React.Component {
                 timeFormat={this.localTime}
                 updateVisit={this.updateButtonClick}
                 showVisit={this.showVisits}
-                // id for targeting click events
-                id={visit._id}
                 // turns on modal
                 infoClick={this.infoButtonClick}
                 modalSwitch={this.switchModal}

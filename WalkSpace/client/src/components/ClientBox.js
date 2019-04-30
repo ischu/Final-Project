@@ -24,6 +24,9 @@ function ClientBox(props) {
                                 email={pet.sex}
                                 headingFour="age"
                                 phone={pet.age}
+                                convertPhone={props.convertPhone}
+                                isPet={true}
+
                             >
                             </UserBox>
                             <hr></hr>

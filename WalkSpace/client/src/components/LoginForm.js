@@ -44,17 +44,17 @@ class LoginForm extends Component {
     render() {
         return (
             <CurrentUser.Consumer>
-                {/* if user is logged in, they are automatically redirected to the profile page */}
+                {/* if user is logged in, they are automatically redirected to the schedule page */}
                 {({ isUser }) =>
                     isUser ?
                         <React.Fragment>
-                            <Redirect to="/profile" />
+                            <Redirect to="/schedule" />
                         </React.Fragment>
                         :
                         <React.Fragment>
                             {/* email input */}
                             <div className="field">
-                                <label className="label">Email</label>
+                                <label className="label">  Email</label>
                                 <div className="control has-icons-right">
                                     <input
                                         className={!(this.state.errors.email) ? "input is-medium is-primary " : "input is-medium is-danger"} 
@@ -74,7 +74,7 @@ class LoginForm extends Component {
                             </div>
                             {/* password input */}
                             <div className="field">
-                                <label className="label">Password</label>
+                                <label className="label">  Password</label>
                                 <div className="control has-icons-right">
                                     <input
                                         className={!this.state.errors.passwordincorrect ? "input is-medium is-primary " : "input is-medium is-danger"}

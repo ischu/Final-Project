@@ -47,7 +47,7 @@ function VisitCard(props) {
                 <div className="content">
                     <div className="columns">
                         <div className="column">
-                            Visit type: {props.visitType}
+                            {props.visitType}
                         </div>
                         <div className="column">
                             {props.arriveStat ? (<p className="has-text-dark">Arrived at: {props.timeFormat(props.arriveTime)}</p>) : <p></p>}

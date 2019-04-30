@@ -79,10 +79,15 @@ export const getDaysVisits = (date, userType, user, cb) => {
 };
 export const updateVisit = (id, action) =>{
   const queryId = id;
+  const logURL = `/MarkVisit?field=${action}&id=${queryId}`;
    axios
     .put(`/MarkVisit?field=${action}&id=${queryId}`)
-    return new Promise((resolve) => {
-      resolve(true);
+    .catch(error=>console.error(error));
+    return new Promise(function(resolve, reject) {
+      setTimeout(function() {
+        resolve();
+        console.log(logURL+" the id is "+queryId);
+      }, 500);
     });
 } 
 export const resetAllVisits = () =>{

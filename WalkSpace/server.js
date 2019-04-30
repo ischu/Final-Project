@@ -144,7 +144,7 @@ app.get("/UserVisitsOnDate", function (req, res) {
     }
     console.log(visits);
     res.json(visits);
-  }).populate(popEmployeeAndClient).sort({'timeBlock':1});
+  }).populate(popEmployeeAndClient).sort({ 'timeBlock': 1 });
 });
 // route for marking arrival
 app.put("/VisitArrive/:id", function (req, res) {
@@ -210,16 +210,19 @@ app.put("/MarkVisit", function (req, res) {
   const currentTime = new Date();
   db.Visit.findOneAndUpdate(
     { _id: queryId },
-    {$set:{
-      [queryField]: {
-        status: true, timestamp: currentTime
-      }}
+    {
+      $set: {
+        [queryField]: {
+          status: true, timestamp: currentTime
+        }
+      }
     }
     , { new: true },
     (err, doc) => {
-      if (err) return res.status(500).send({ error: err });
-      console.log(doc.queryField);
-      return res.send(`succesfully updated ${queryField}`)
+      if (err) { return res.status(500).send({ error: err }) }
+      else {
+        return res.send(`succesfully updated ${queryField}`)
+      }
     }
   )
 });
@@ -246,18 +249,19 @@ app.put("/ResetVisit", function (req, res) {
 app.put("/ResetAll", function (req, res) {
   db.Visit.updateMany(
     {},
-    {$set:
     {
-      arrive: {
-        status: false, timestamp: null
-      },
-      complete: {
-        status: false, timestamp: null
-      },
-      cancel: {
-        status: false, timestamp: null
+      $set:
+      {
+        arrive: {
+          status: false, timestamp: null
+        },
+        complete: {
+          status: false, timestamp: null
+        },
+        cancel: {
+          status: false, timestamp: null
+        }
       }
-    }
     }
     , { new: true },
     (err, doc) => {
