@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Level, Button } from "react-bulma-components/full";
-import { getDaysVisits, updateVisit } from "../utils/docController";
+import { getDaysVisits, updateVisit, resetAllVisits } from "../utils/docController";
 import Calendar from 'react-calendar';
 import NavBar from "../components/NavBar";
 import VisitCard from "../components/VisitCard";
@@ -16,7 +16,7 @@ class Schedule extends React.Component {
       date: new Date(),
       // empty array, api call will fill with the selected date's visits
       visits: [],
-      modalActive: false
+      // modalActive: false
     };
   }
   async componentDidMount() {
@@ -110,38 +110,43 @@ class Schedule extends React.Component {
     );
   }
   // close modal if open, open modal if closed
-  switchModal=()=>{
-    if (this.state.modalActive) {
-      this.setState({ modalActive: false })
-    } else{
-      this.setState({ modalActive: true })
-    }
-  }
+  // switchModal=()=>{
+  //   if (this.state.modalActive) {
+  //     this.setState({ modalActive: false })
+  //   } else{
+  //     this.setState({ modalActive: true })
+  //   }
+  // }
 
   
-  infoButtonClick = (index, cb) => {
-    function handleClick(e) {
-      e.preventDefault();
-      this.fillModal(e.target.index).then(cb())
-      console.log('The info button was clicked.');
-    }
-    function fillModal(index) {
-      const thisClient = this.visit[index].client
-      return (
-        <UserBox
-          key={thisClient._id}
-          name={thisClient.name}
-          headingTwo="address"
-          address={thisClient.address}
-          headingThree="email"
-          email={thisClient.email}
-          headingFour="phone"
-          phone={thisClient.phone}
-          convertPhone={this.convertPhone}
-        >
-        </UserBox>
-      );
-    }
+  // infoButtonClick = (index, cb) => {
+  //   function handleClick(e) {
+  //     e.preventDefault();
+  //     this.fillModal(e.target.index).then(cb())
+  //     console.log('The info button was clicked.');
+  //   }
+  //   function fillModal(index) {
+  //     const thisClient = this.visit[index].client
+  //     return (
+  //       <UserBox
+  //         key={thisClient._id}
+  //         name={thisClient.name}
+  //         headingTwo="address"
+  //         address={thisClient.address}
+  //         headingThree="email"
+  //         email={thisClient.email}
+  //         headingFour="phone"
+  //         phone={thisClient.phone}
+  //         convertPhone={this.convertPhone}
+  //       >
+  //       </UserBox>
+  //     );
+  //   }
+  // }
+  secretClick(e){
+    e.preventDefault()
+    resetAllVisits()
+    console.log("secret click")
   }
   render() {
     let slashDate = this.state.date.toLocaleDateString();
@@ -150,18 +155,6 @@ class Schedule extends React.Component {
     var noVisitDay = (visitCount === 0) ? true : false;
     return (
       <React.Fragment>
-        <div className=
-          {this.state.modalActive ?
-            "modal is-active"
-            :
-            "modal"}>
-          <div className="modal-background"></div>
-          <div className="modal-content">
-            {/* {this.fillModal(this.state.index)} */}
-            Modal
-          </div>
-          <button onClick={this.switchModal} className="modal-close is-large" aria-label="close"></button>
-        </div>
         <NavBar></NavBar>
         <Level id="calendarLevel">
           <div id="calendarLevel" className="level-item">
@@ -184,7 +177,7 @@ class Schedule extends React.Component {
             noVisitDay ?
             <Container>
               <Level className="has-text-centered">
-                <p id="levelWords" className="level-item title has-text-grey-dark">No Visits Today!</p>
+                <p onClick={this.secretClick}id="levelWords" className="level-item title has-text-grey-dark">No Visits Today!</p>
               </Level>
             </Container>
             :

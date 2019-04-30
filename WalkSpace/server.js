@@ -210,10 +210,10 @@ app.put("/MarkVisit", function (req, res) {
   const currentTime = new Date();
   db.Visit.findOneAndUpdate(
     { _id: queryId },
-    {
+    {$set:{
       [queryField]: {
         status: true, timestamp: currentTime
-      }
+      }}
     }
     , { new: true },
     (err, doc) => {
@@ -242,6 +242,31 @@ app.put("/ResetVisit", function (req, res) {
     }
   )
 });
+// for resetting demo
+app.put("/ResetAll", function (req, res) {
+  db.Visit.updateMany(
+    {},
+    {$set:
+    {
+      arrive: {
+        status: false, timestamp: null
+      },
+      complete: {
+        status: false, timestamp: null
+      },
+      cancel: {
+        status: false, timestamp: null
+      }
+    }
+    }
+    , { new: true },
+    (err, doc) => {
+      if (err) return res.res.status(500).send({ error: err });
+      console.log(doc);
+      return res.send(`succesfully reset all visits`)
+    }
+  )
+})
 // Send every other request to the React app
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client", "build", "index.html"));

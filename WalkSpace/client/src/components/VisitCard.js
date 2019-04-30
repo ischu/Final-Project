@@ -25,26 +25,23 @@ function VisitCard(props) {
                 }
                 {/* clients can click to cancel visit */}
                 {// cancel button only available before arrival
-                    props.arriveStat ?
-                        <React.Fragment />
-                        :
-                        props.completeStat ?
+                    props.arriveStat || props.completeStat || props.cancelStat ?
                             <React.Fragment />
                             :
                             props.type ?
                                 (
-                                    <div className="column is-2 is-offset-1">
+                                    <div className="column is-2 is-offset-1 button-item">
                                         {props.updateVisit(props.id, "cancel", props.showVisit)}
                                     </div>
                                 )
                                 :
                                 (<React.Fragment />)
                 }
-                <a className="card-header-icon" aria-label="more options">
+                {/* <a className="card-header-icon" aria-label="more options">
                     <span className="icon">
                         <i className="fas fa-angle-down" aria-hidden="true"></i>
                     </span>
-                </a>
+                </a> */}
             </header>
             <div className="card-content background-is-white-ter">
                 <div className="content">
@@ -62,7 +59,7 @@ function VisitCard(props) {
                         {/* info button */}
                         {props.type ?
                             <div className="column">
-                                <Button onClick={props.infoClick(props.modalSwitch)} index={props.index} id="button-item" className="has-text-center is-fullwidth button is-dark is-inverted">
+                                <Button id="button-item" className="has-text-center is-fullwidth button is-dark is-inverted">
                                     Handler Info
                                 </Button>
                             </div> :
