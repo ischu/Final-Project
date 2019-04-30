@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Container } from "react-bulma-components/full";
 import CurrentUser from "../AppContext";
+// import nounDog from "../imgs/nounDog.png";
 
 class NavBar extends Component {
     // static contextType = CurrentUser;
@@ -10,8 +11,11 @@ class NavBar extends Component {
             <nav className="navbar" role="navigation" aria-label="main navigation">
                 <Container>
                     <div className="navbar-brand">
-                        <div id="logo" className="navbar-item">
-                            WalkSpace
+                        {/* <div className="navbar-item">
+                            <img id="logo-img" alt="" src={nounDog}></img>
+                        </div> */}
+                        <div className="navbar-item">
+                            <span id="logo" >WalkSpace</span>
                         </div>
                     </div>
                     {/* add className="navbar-menu" and this section will be hidden when on screens smaller than 1024 */}

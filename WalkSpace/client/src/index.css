@@ -1,11 +1,13 @@
+html{
+  background: url(./imgs/circuit.png) ; 
+}
 body {
   margin: 0;
   padding: 0;
   font-family: "Lato", sans-serif;
   font-weight: 600;
-  height: 100vh;
+  height: 100%;
   width: 100vw;
-  background-image: url(./imgs/memphis-colorful.png)
 }
 * {
   font-family: "Lato", sans-serif;
@@ -29,6 +31,9 @@ body {
   padding-bottom: .25rem;
   border: 5px solid hsl(348, 100%, 61%)
 }
+.navbar{
+  margin-bottom: 1rem;
+}
 #profileContaier {
   padding-top: auto;
   padding-bottom: auto
@@ -43,6 +48,9 @@ body {
   font-family: "Modak";
   font-size: 2em
 }
+/* #logo-img{
+
+} */
 /* #levelWords{
   font-family: monospace
 } */

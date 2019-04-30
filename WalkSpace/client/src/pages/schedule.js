@@ -5,6 +5,7 @@ import Calendar from 'react-calendar';
 import NavBar from "../components/NavBar";
 import VisitCard from "../components/VisitCard";
 import CurrentUser from "../AppContext";
+import UserBox from "../components/UserBox";
 
 class Schedule extends React.Component {
   constructor() {
@@ -14,7 +15,8 @@ class Schedule extends React.Component {
       // schedule defaults to today's date
       date: new Date(),
       // empty array, api call will fill with the selected date's visits
-      visits: []
+      visits: [],
+      modalActive: false
     };
   }
   async componentDidMount() {
@@ -107,15 +109,60 @@ class Schedule extends React.Component {
       </Button>
     );
   }
+  // close modal if open, open modal if closed
+  switchModal=()=>{
+    if (this.state.modalActive) {
+      this.setState({ modalActive: false })
+    } else{
+      this.setState({ modalActive: true })
+    }
+  }
+
+  
+  infoButtonClick = (index, cb) => {
+    function handleClick(e) {
+      e.preventDefault();
+      this.fillModal(e.target.index).then(cb())
+      console.log('The info button was clicked.');
+    }
+    function fillModal(index) {
+      const thisClient = this.visit[index].client
+      return (
+        <UserBox
+          key={thisClient._id}
+          name={thisClient.name}
+          headingTwo="address"
+          address={thisClient.address}
+          headingThree="email"
+          email={thisClient.email}
+          headingFour="phone"
+          phone={thisClient.phone}
+          convertPhone={this.convertPhone}
+        >
+        </UserBox>
+      );
+    }
+  }
   render() {
     let slashDate = this.state.date.toLocaleDateString();
     let visits = this.state.visits;
     let visitCount = this.state.visits.length;
-    var noVisitDay = (visitCount===0)? true : false;
+    var noVisitDay = (visitCount === 0) ? true : false;
     return (
       <React.Fragment>
+        <div className=
+          {this.state.modalActive ?
+            "modal is-active"
+            :
+            "modal"}>
+          <div className="modal-background"></div>
+          <div className="modal-content">
+            {/* {this.fillModal(this.state.index)} */}
+            Modal
+          </div>
+          <button onClick={this.switchModal} className="modal-close is-large" aria-label="close"></button>
+        </div>
         <NavBar></NavBar>
-
         <Level id="calendarLevel">
           <div id="calendarLevel" className="level-item">
             <Calendar id="calendar"
@@ -128,18 +175,20 @@ class Schedule extends React.Component {
         <Container className="has-background-white-bis">
           {/* Top title-bar, with the days date */}
           <Level>
-            <div className="level-item has-background-grey-dark">
-              <p id="levelWords" className="title has-text-white-bis">{slashDate}</p>
+            <div className="level-item has-background-white-bis">
+              <p id="levelWords" className="title has-text-grey-dark">{slashDate}</p>
             </div>
           </Level>
           {/* only loads after context and visits are loaded */}
           {this.context.type && this.state.visits &&
-            noVisitDay?
-            <Level className="has-text-centered">
-              <p id="levelWords" className="level-item title">No Visits Today!</p>
-            </Level>
+            noVisitDay ?
+            <Container>
+              <Level className="has-text-centered">
+                <p id="levelWords" className="level-item title has-text-grey-dark">No Visits Today!</p>
+              </Level>
+            </Container>
             :
-            visits.map((visit) =>
+            visits.map((visit, index) =>
               <VisitCard
                 key={visit._id}
                 // changes how cards render- boolean
@@ -164,6 +213,12 @@ class Schedule extends React.Component {
                 showVisit={this.showVisits}
                 // id for targeting click events
                 id={visit._id}
+                // turns on modal
+                infoClick={this.infoButtonClick}
+                modalSwitch={this.switchModal}
+                // index for populating modal
+                index={index}
+
               />
             )
           }

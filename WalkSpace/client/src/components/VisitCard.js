@@ -62,9 +62,9 @@ function VisitCard(props) {
                         {/* info button */}
                         {props.type ?
                             <div className="column">
-                                <Button id="button-item" className="has-text-center is-fullwidth button is-dark is-inverted">
+                                <Button onClick={props.infoClick(props.modalSwitch)} index={props.index} id="button-item" className="has-text-center is-fullwidth button is-dark is-inverted">
                                     Handler Info
-                            </Button>
+                                </Button>
                             </div> :
                             <div className="column">
                                 <Button id="button-item" className="has-text-center is-fullwidth button is-dark is-inverted">
