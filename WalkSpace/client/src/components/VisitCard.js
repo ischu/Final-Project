@@ -114,19 +114,19 @@ class VisitCard extends React.Component {
                     <div className="columns" style={this.state.shouldHide ? this.state.noneStyle : this.state.flexStyle} >
                         {this.props.type ?
                             <React.Fragment>
-                                <div className="column ">
+                                <div className="column is-4 is-offset-2">
                                     Handler Phone: {this.convertPhone(this.props.handPhone)}
                                 </div>
-                                <div className="column">
+                                <div className="column is-4 is-offset-1">
                                     Handler email: {this.props.handEmail}
                                 </div>
                             </React.Fragment>
                             :
                             <React.Fragment>
-                                <div className="column">
+                                <div className="column is-4 is-offset-2">
                                     Client Phone: {this.convertPhone(this.props.cliPhone)}
                                 </div>
-                                <div className="column">
+                                <div className="column is-4 is-offset-1">
                                     Client email: {this.props.cliEmail}
                                 </div>
                             </React.Fragment>

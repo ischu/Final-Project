@@ -39,9 +39,8 @@ class Schedule extends React.Component {
       resolve();
     });
   };
-  // for setting date state with calendar
+  // enforces correct oreder: set date THEN show visits
   changeDate = date => {
-    console.log("change", this.context.user, this.context.type)
     this.setDate(date).then(res => this.showVisits())
   }
   // 
@@ -108,40 +107,21 @@ class Schedule extends React.Component {
       </Button>
     );
   }
-  // close modal if open, open modal if closed
-  // switchModal=()=>{
-  //   if (this.state.modalActive) {
-  //     this.setState({ modalActive: false })
-  //   } else{
-  //     this.setState({ modalActive: true })
-  //   }
-  // }
-
-
-  // infoButtonClick = (index, cb) => {
-  //   function handleClick(e) {
-  //     e.preventDefault();
-  //     this.fillModal(e.target.index).then(cb())
-  //     console.log('The info button was clicked.');
-  //   }
-  //   function fillModal(index) {
-  //     const thisClient = this.visit[index].client
-  //     return (
-  //       <UserBox
-  //         key={thisClient._id}
-  //         name={thisClient.name}
-  //         headingTwo="address"
-  //         address={thisClient.address}
-  //         headingThree="email"
-  //         email={thisClient.email}
-  //         headingFour="phone"
-  //         phone={thisClient.phone}
-  //         convertPhone={this.convertPhone}
-  //       >
-  //       </UserBox>
-  //     );
-  //   }
-  // }
+  // TODO combine these into one function
+  goToTomorrow = (e) => {
+    e.preventDefault()
+    let today = this.state.date
+    let then = today.setDate(today.getDate() + 1)
+    let tomorrow = new Date(then)
+    this.changeDate(tomorrow)
+  }
+  goToYesterday = (e) => {
+    e.preventDefault()
+    let today = this.state.date
+    let then = today.setDate(today.getDate() - 1)
+    let yesterday = new Date(then)
+    this.changeDate(yesterday)
+  }
   secretClick(e) {
     e.preventDefault()
     resetAllVisits()
@@ -167,9 +147,15 @@ class Schedule extends React.Component {
         <Container className="has-background-white-bis">
           {/* Top title-bar, with the days date */}
           <Level>
+            <Button className="level-item is-light" onClick={this.goToYesterday}>
+              <i class="fas fa-long-arrow-alt-left"></i>
+            </Button>
             <div className="level-item has-background-white-bis">
               <p id="levelWords" className="title has-text-grey-dark">{slashDate}</p>
             </div>
+            <Button className="level-item is-light" onClick={this.goToTomorrow}>
+              <i class="fas fa-long-arrow-alt-right"></i>
+            </Button>
           </Level>
           {/* only loads after context and visits are loaded */}
           {this.context.type && this.state.visits &&
@@ -211,11 +197,11 @@ class Schedule extends React.Component {
                 cliPhone={visit.client.phone}
                 cliEmail={visit.client.email}
                 shouldHide={false}
-                // turns on modal
-                // infoClick={this.infoButtonClick}
-                // modalSwitch={this.switchModal}
-                // index for populating modal
-                // index={index}
+              // turns on modal
+              // infoClick={this.infoButtonClick}
+              // modalSwitch={this.switchModal}
+              // index for populating modal
+              // index={index}
 
               />
             )
