@@ -48,7 +48,7 @@ class LoginForm extends Component {
                 {({ isUser }) =>
                     isUser ?
                         <React.Fragment>
-                            <Redirect to="/schedule" />
+                            <Redirect to="/profile" />
                         </React.Fragment>
                         :
                         <React.Fragment>

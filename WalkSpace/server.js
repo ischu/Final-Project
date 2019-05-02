@@ -144,7 +144,7 @@ app.get("/UserVisitsOnDate", function (req, res) {
     }
     console.log(visits);
     res.json(visits);
-  }).populate(popEmployeeAndClient).sort({ 'timeBlock': 1 });
+  }).populate(popEmployeeAndClient).sort({ 'timeBlock': 1, '_id' : 1 });
 });
 // route for marking arrival
 app.put("/VisitArrive/:id", function (req, res) {

@@ -5,7 +5,6 @@ import Calendar from 'react-calendar';
 import NavBar from "../components/NavBar";
 import VisitCard from "../components/VisitCard";
 import CurrentUser from "../AppContext";
-import UserBox from "../components/UserBox";
 
 class Schedule extends React.Component {
   constructor() {
@@ -206,11 +205,17 @@ class Schedule extends React.Component {
                 timeFormat={this.localTime}
                 updateVisit={this.updateButtonClick}
                 showVisit={this.showVisits}
+                // client and employee contact info
+                handPhone={visit.employee.phone}
+                handEmail={visit.employee.email}
+                cliPhone={visit.client.phone}
+                cliEmail={visit.client.email}
+                shouldHide={false}
                 // turns on modal
-                infoClick={this.infoButtonClick}
-                modalSwitch={this.switchModal}
+                // infoClick={this.infoButtonClick}
+                // modalSwitch={this.switchModal}
                 // index for populating modal
-                index={index}
+                // index={index}
 
               />
             )

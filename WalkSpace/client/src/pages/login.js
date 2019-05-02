@@ -1,6 +1,5 @@
 import React from "react";
 import { Container, Level } from "react-bulma-components/full";
-import Hero from "../components/Hero";
 import NavBar from "../components/NavBar";
 import LoginForm from "../components/LoginForm.js";
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Level } from 'react-bulma-components';
 
 function UserBox(props) {
     return (
